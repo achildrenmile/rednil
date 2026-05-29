@@ -2,52 +2,34 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONTACT_EMAIL } from '../lib/constants';
 ---
-<BaseLayout title="Datenschutz" description="Datenschutzerklärung gemäß DSGVO.">
+<BaseLayout title="Datenschutz" description="Datenschutzerklärung.">
   <article class="mx-auto max-w-2xl px-6 py-16 md:py-24">
-    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Datenschutzerklärung</h1>
+    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Datenschutz</h1>
 
     <div class="prose mt-10">
-      <h2>Verantwortlicher</h2>
       <p>
-        Ing. Michael Linder, MSc<br />
-        Strali Solutions e.U.<br />
-        Nötsch 219, 9611 Nötsch im Gailtal, Österreich<br />
-        E-Mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+        Verantwortlich: Ing. Michael Linder, MSc, Nötsch im Gailtal, Österreich.<br />
+        Kontakt: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </p>
 
-      <h2>Grundsatz</h2>
+      <h2>Was diese Seite nicht tut</h2>
       <p>
-        Diese Website erhebt, speichert und verarbeitet keine personenbezogenen Daten über das technisch notwendige Maß hinaus. Es werden keine Cookies gesetzt, kein Tracking eingesetzt und keine Analytics-Dienste genutzt.
+        Kein Tracking. Keine Cookies. Keine Analytics. Keine Weitergabe an Dritte. Die einzige clientseitige Speicherung ist Ihre Hell/Dunkel-Präferenz im localStorage.
       </p>
 
-      <h2>Hosting und Cloudflare</h2>
+      <h2>Hosting</h2>
       <p>
-        Diese Website wird auf eigener Infrastruktur gehostet und über Cloudflare Tunnel (Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA) ausgeliefert. Cloudflare verarbeitet dabei technisch notwendige Verbindungsdaten (IP-Adresse, Zeitstempel, aufgerufene URL) zur Sicherstellung der Erreichbarkeit und zum Schutz vor Angriffen. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse). Cloudflare ist unter dem EU-U.S. Data Privacy Framework zertifiziert. Zusätzlich bestehen Standardvertragsklauseln für den internationalen Datentransfer.
-      </p>
-
-      <h2>Server-Log-Dateien</h2>
-      <p>
-        Der Webserver erfasst bei jedem Zugriff automatisch technische Daten: IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser-Kennung. Diese Daten dienen ausschließlich der technischen Sicherstellung des Betriebs und werden nicht mit anderen Datenquellen zusammengeführt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
-      </p>
-
-      <h2>Keine Cookies, kein Tracking</h2>
-      <p>
-        Diese Website setzt keine Cookies und verwendet keine Tracking- oder Analyse-Tools. Die einzige clientseitige Speicherung betrifft Ihre Farbschema-Präferenz (hell/dunkel) im localStorage Ihres Browsers. Diese Information verlässt Ihren Browser nicht.
+        Die Seite wird auf eigener Infrastruktur gehostet und über Cloudflare Tunnel ausgeliefert. Cloudflare verarbeitet dabei Verbindungsdaten (IP, Zeitstempel, URL) zur Sicherstellung der Erreichbarkeit. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO. Cloudflare ist unter dem EU-U.S. Data Privacy Framework zertifiziert.
       </p>
 
       <h2>Kontaktaufnahme</h2>
       <p>
-        Wenn Sie per E-Mail Kontakt aufnehmen, werden die von Ihnen mitgeteilten Daten (E-Mail-Adresse, Inhalt) zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO bzw. Art. 6 Abs. 1 lit. f DSGVO.
-      </p>
-
-      <h2>Externe Links</h2>
-      <p>
-        Diese Website enthält Links zu externen Websites (z.B. LinkedIn, GitHub, strali.solutions). Für die Datenverarbeitung auf diesen Websites gelten deren jeweilige Datenschutzbestimmungen.
+        Bei E-Mail-Kontakt werden Ihre Daten zur Bearbeitung der Anfrage gespeichert. Keine Weitergabe. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO.
       </p>
 
       <h2>Ihre Rechte</h2>
       <p>
-        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Anfragen richten Sie an <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Beschwerden können an die Österreichische Datenschutzbehörde (<a href="https://www.dsb.gv.at" target="_blank" rel="noopener">dsb.gv.at</a>) gerichtet werden.
+        Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch. Beschwerden an die <a href="https://www.dsb.gv.at" target="_blank" rel="noopener">Österreichische Datenschutzbehörde</a>.
       </p>
     </div>
   </article>
