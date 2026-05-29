@@ -9,7 +9,7 @@ export const ui = {
     'nav.home': 'Start',
     'nav.about': 'Über mich',
     'nav.blog': 'Blog',
-    'nav.now': 'Now',
+    'nav.projects': 'Projekte',
     'nav.contact': 'Kontakt',
     'footer.strali': 'Beruflich tätig über Strali Solutions e.U.',
     'footer.imprint': 'Impressum',
@@ -26,7 +26,7 @@ export const ui = {
     'nav.home': 'Home',
     'nav.about': 'About',
     'nav.blog': 'Blog',
-    'nav.now': 'Now',
+    'nav.projects': 'Projects',
     'nav.contact': 'Contact',
     'footer.strali': 'Professionally active via Strali Solutions e.U.',
     'footer.imprint': 'Imprint',
@@ -77,6 +77,8 @@ export function getAlternateLocalePath(currentPath: string, targetLocale: Locale
     '/privacy': '/datenschutz',
     '/ki-transparenz': '/ai-transparency',
     '/ai-transparency': '/ki-transparenz',
+    '/projekte': '/projects',
+    '/projects': '/projekte',
   };
 
   if (targetLocale === defaultLocale) {

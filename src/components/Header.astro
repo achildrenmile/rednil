@@ -11,7 +11,7 @@ const locale = getLocaleFromPath(currentPath) as Locale;
 const nav = [
   { label: t('nav.about', locale), href: getLocalePath(locale === 'de' ? '/ueber-mich' : '/about', locale) },
 { label: t('nav.blog', locale), href: getLocalePath('/blog', locale) },
-  { label: t('nav.now', locale), href: getLocalePath('/now', locale) },
+  { label: t('nav.projects', locale), href: getLocalePath(locale === 'de' ? '/projekte' : '/projects', locale) },
   { label: t('nav.contact', locale), href: getLocalePath(locale === 'de' ? '/kontakt' : '/contact', locale) },
 ];
 ---
