@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { personSchema } from '../../lib/jsonld';
+import { GITHUB_URL, LINKEDIN_URL } from '../../lib/constants';
 
 const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -12,14 +13,18 @@ const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'l
 <BaseLayout description="Solutions Architect with 20+ years of experience. AI Governance, Platform Engineering, Enterprise IT in the DACH region." jsonLd={personSchema}>
 
   <section class="mx-auto max-w-2xl px-6 pt-16 pb-12 md:pt-24 md:pb-16">
-    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Michael Linder</h1>
-    <p class="mt-1 text-neutral-muted">Solutions Architect · AI Governance · Enterprise IT</p>
-    <p class="mt-6 text-lg leading-relaxed">
-      I'm Michael. Father, solutions architect, amateur radio operator — and when I'm not tinkering with IT systems, I'm somewhere on a mountain in Carinthia. Sometimes with a radio in my pack.
+    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">I'm Michael.</h1>
+    <p class="mt-4 text-lg leading-relaxed">
+      Father, solutions architect, amateur radio operator — and when I'm not tinkering with IT systems, I'm somewhere on a mountain in Carinthia. Sometimes with a radio in my pack.
     </p>
-    <p class="mt-6 text-lg leading-relaxed">
+    <p class="mt-4 text-lg leading-relaxed text-neutral-muted">
       For over twenty years I've built enterprise IT systems that have to work — not just look good. These days I think a lot about where technical architecture, AI regulation, and business responsibility meet, especially in the DACH region.
     </p>
+    <div class="mt-6 flex gap-4 text-sm">
+      <a href={GITHUB_URL} class="text-neutral-muted hover:text-neutral-fg" target="_blank" rel="noopener">GitHub</a>
+      <a href={LINKEDIN_URL} class="text-neutral-muted hover:text-neutral-fg" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="/en/rss.xml" class="text-neutral-muted hover:text-neutral-fg">RSS</a>
+    </div>
   </section>
 
   {posts.length > 0 && (
