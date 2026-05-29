@@ -1,0 +1,13 @@
+services:
+  rednil-web:
+    image: ghcr.io/achildrenmile/rednil-web:latest
+    container_name: rednil-web
+    restart: unless-stopped
+    networks:
+      - cloudflared
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+
+networks:
+  cloudflared:
+    external: true
