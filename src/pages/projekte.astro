@@ -4,9 +4,26 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 <BaseLayout title="Projekte" description="Nebenprojekte von Michael Linder: Amateurfunk, Tech & AI.">
   <article class="mx-auto max-w-2xl px-6 py-16 md:py-24">
     <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Projekte</h1>
+    <p class="mt-4 text-lg text-neutral-muted">
+      Dinge, die ich neben dem Beruf baue. Von Amateurfunk-Tools bis AI-Demos.
+    </p>
 
     <div class="prose mt-10">
-      <h2>Amateurfunk</h2>
+      <h2>Projekte (Auswahl)</h2>
+      <ul>
+        <li><strong>Intranet-Relaunch</strong> - Relaunch eines Intranets für 40.000+ User. SharePoint 2019 als CMS, Microservices und Container auf OpenShift. Rolle: Projektmanager</li>
+        <li><strong>Generic Asset Management System</strong> - Architektur und Entwicklung eines plattformübergreifenden Asset-Management-Systems. Microservices mit .NET, SignalR, Multi-Agent-System, React-Frontend, deployed auf OpenShift mit Tekton-Pipelines</li>
+        <li><strong>VideoPortal</strong> - Video-on-Demand-Portal für 40.000+ User mit weltweiter Verteilung und Caching. Angular, .NET Core, Python, FFMPEG, JWPlayer auf OpenShift</li>
+        <li><strong>Digital Platform (Consumer Electronics)</strong> - Cloud-Architektur einer weltweit verteilten Plattform (inkl. China). Cloud Foundry auf AWS, Microservices, PostgreSQL, Redis, RabbitMQ</li>
+        <li><strong>IoT Platform</strong> - Plattform für Management und Prototyping von IoT-Geräten (ESP32, TTGO). Over-the-Air Firmware-Updates, Browser-basierte Firmware-Entwicklung. Node.js, .NET Core, Angular, Docker</li>
+        <li><strong>MP ERP (Batterieseparator-Industrie)</strong> - ERP-System für die gesamte Wertschöpfungskette. .NET, WPF, SQL Server, Android-Scanner-Integration. Rolle: Projektmanager und Software Architect</li>
+        <li><strong>Translation Service</strong> - Containerisierte Node.js-Microservices auf OpenShift mit DeepL-API, UI und Statistiken</li>
+        <li><strong>Moderated Chat Platform</strong> - Echtzeit-Chat mit Moderations-Workflows für CEO-Interviews und Q&As. SignalR, TypeScript, automatisierte Stresstests</li>
+      </ul>
+
+      <h2>Nebenprojekte</h2>
+
+      <h3>Amateurfunk</h3>
       <ul>
         <li><a href="https://oeradio.at" target="_blank" rel="noopener">oeradio.at</a> - Informationsportal für Funkamateure: Artikel, Anleitungen, Online-Tools und Logbuch</li>
         <li><a href="https://kaernten-funkt.at" target="_blank" rel="noopener">kaernten-funkt.at</a> - Kärntens aktivster Funkverein (280+ Mitglieder), Amateurfunkkurse, Notfunk, Meshtastic</li>
@@ -19,8 +36,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <li><a href="https://webrx.at" target="_blank" rel="noopener">webrx.at</a> - WebRX Amateurfunk-Empfänger online</li>
       </ul>
 
-      <h2>Tech & AI</h2>
+      <h3>Tech & AI</h3>
       <ul>
+        <li><a href="https://github.com/achildrenmile/crisp" target="_blank" rel="noopener">CRISP</a> - KI-gesteuerter Agent, der Developer-Anforderungen in fertig konfigurierte Code-Repos verwandelt</li>
         <li><a href="https://github.com/achildrenmile/mastra-doc-intel-demo" target="_blank" rel="noopener">Mastra Doc Intel</a> - Production-grade Document Intelligence Agent mit Mastra und Claude</li>
         <li><a href="https://github.com/achildrenmile/rag-reference-architecture" target="_blank" rel="noopener">RAG Reference Architecture</a> - Referenzarchitektur für Retrieval-Augmented Generation</li>
         <li><a href="https://ai4u.strali.solutions/showcase" target="_blank" rel="noopener">AI4U Showcase</a> - Live-Demo für agentic AI mit Enterprise-Anbindung</li>

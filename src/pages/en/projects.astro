@@ -4,9 +4,26 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 <BaseLayout title="Projects" description="Side projects by Michael Linder: amateur radio, tech & AI.">
   <article class="mx-auto max-w-2xl px-6 py-16 md:py-24">
     <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Projects</h1>
+    <p class="mt-4 text-lg text-neutral-muted">
+      Things I build on the side. From amateur radio tools to AI demos.
+    </p>
 
     <div class="prose mt-10">
-      <h2>Amateur Radio</h2>
+      <h2>Projects (Selection)</h2>
+      <ul>
+        <li><strong>Intranet Relaunch</strong> - Relaunch of an intranet for 40,000+ users. SharePoint 2019 as CMS, microservices and containers on OpenShift. Role: Project Manager</li>
+        <li><strong>Generic Asset Management System</strong> - Architecture and development of a cross-platform asset management system. Microservices with .NET, SignalR, multi-agent system, React frontend, deployed on OpenShift with Tekton pipelines</li>
+        <li><strong>Video Portal</strong> - Video-on-demand portal for 40,000+ users with worldwide distribution and caching. Angular, .NET Core, Python, FFMPEG, JWPlayer on OpenShift</li>
+        <li><strong>Digital Platform (Consumer Electronics)</strong> - Cloud architecture for a globally distributed platform (incl. China). Cloud Foundry on AWS, microservices, PostgreSQL, Redis, RabbitMQ</li>
+        <li><strong>IoT Platform</strong> - Platform for managing and prototyping IoT devices (ESP32, TTGO). Over-the-air firmware updates, browser-based firmware development. Node.js, .NET Core, Angular, Docker</li>
+        <li><strong>MP ERP (Battery Separator Industry)</strong> - ERP system for the full value chain. .NET, WPF, SQL Server, Android scanner integration. Role: Project Manager and Software Architect</li>
+        <li><strong>Translation Service</strong> - Containerized Node.js microservices on OpenShift with DeepL API, UI and statistics</li>
+        <li><strong>Moderated Chat Platform</strong> - Real-time chat with moderation workflows for CEO interviews and Q&As. SignalR, TypeScript, automated stress testing</li>
+      </ul>
+
+      <h2>Side Projects</h2>
+
+      <h3>Amateur Radio</h3>
       <ul>
         <li><a href="https://oeradio.at" target="_blank" rel="noopener">oeradio.at</a> - information portal for radio amateurs: articles, guides, online tools, and logbook</li>
         <li><a href="https://kaernten-funkt.at" target="_blank" rel="noopener">kaernten-funkt.at</a> - Carinthia's most active radio club (280+ members), licensing courses, emergency comms, Meshtastic</li>
@@ -19,8 +36,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
         <li><a href="https://webrx.at" target="_blank" rel="noopener">webrx.at</a> - WebRX amateur radio receivers online</li>
       </ul>
 
-      <h2>Tech & AI</h2>
+      <h3>Tech & AI</h3>
       <ul>
+        <li><a href="https://github.com/achildrenmile/crisp" target="_blank" rel="noopener">CRISP</a> - AI-powered agent that transforms developer requirements into fully configured, ready-to-use code repos</li>
         <li><a href="https://github.com/achildrenmile/mastra-doc-intel-demo" target="_blank" rel="noopener">Mastra Doc Intel</a> - production-grade Document Intelligence Agent built on Mastra and Claude</li>
         <li><a href="https://github.com/achildrenmile/rag-reference-architecture" target="_blank" rel="noopener">RAG Reference Architecture</a> - reference architecture for Retrieval-Augmented Generation</li>
         <li><a href="https://ai4u.strali.solutions/showcase" target="_blank" rel="noopener">AI4U Showcase</a> - live demo for agentic AI with enterprise integration</li>
