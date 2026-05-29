@@ -1,8 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => data.lang === 'de' && !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const dateFormatter = new Intl.DateTimeFormat('de-AT', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
-<BaseLayout>
-  <section class="mx-auto max-w-5xl px-6 py-24">
-    <h1 class="font-display text-4xl font-bold">Platzhalter — Phase 2</h1>
+<BaseLayout description="Solutions Architect mit 20+ Jahren Erfahrung. AI Governance, Platform Engineering, Enterprise IT im DACH-Raum.">
+  <!-- Hero -->
+  <section class="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-24">
+    <div class="max-w-3xl">
+      <p class="mb-4 text-sm font-medium tracking-wide text-brand-primary uppercase">
+        Solutions Architect · AI Governance · Enterprise IT
+      </p>
+      <h1 class="font-display text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
+        Michael Linder
+      </h1>
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-muted md:text-xl">
+        Seit über zwanzig Jahren baue ich IT-Systeme für Unternehmen, die funktionieren müssen — nicht solche, die nur gut aussehen. Heute denke ich besonders über die Schnittstelle zwischen technischer Architektur, KI-Regulierung und unternehmerischer Verantwortung im DACH-Raum nach.
+      </p>
+      <p class="mt-8 font-display text-lg italic text-neutral-muted">
+        Systeme verstehen. Lösungen bauen. Verantwortung übernehmen.
+      </p>
+    </div>
   </section>
+
+  <!-- Recent Posts -->
+  {posts.length > 0 && (
+    <section class="border-t border-neutral-border">
+      <div class="mx-auto max-w-5xl px-6 py-16 md:py-24">
+        <h2 class="font-display text-2xl font-bold tracking-tight md:text-3xl">Aktuelle Beiträge</h2>
+        <div class="mt-10 space-y-10">
+          {posts.map((post) => (
+            <article class="group">
+              <a href={`/blog/${post.id}`} class="block">
+                <time class="text-sm text-neutral-muted" datetime={post.data.pubDate.toISOString()}>
+                  {dateFormatter.format(post.data.pubDate)}
+                </time>
+                <h3 class="mt-1 font-display text-xl font-bold tracking-tight transition-colors group-hover:text-brand-primary md:text-2xl">
+                  {post.data.title}
+                </h3>
+                <p class="mt-2 text-neutral-muted">{post.data.description}</p>
+              </a>
+            </article>
+          ))}
+        </div>
+        <a href="/blog" class="mt-10 inline-block text-sm font-medium text-brand-primary hover:underline">
+          Alle Beiträge &rarr;
+        </a>
+      </div>
+    </section>
+  )}
 </BaseLayout>

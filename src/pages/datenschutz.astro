@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL } from '../lib/constants';
+---
+<BaseLayout title="Datenschutz" description="Datenschutzerklärung gemäß DSGVO.">
+  <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Datenschutzerklärung</h1>
+
+    <div class="prose mt-10">
+      <h2>Verantwortlicher</h2>
+      <p>
+        Michael Linder, Strali Solutions e.U.<br />
+        Nötsch im Gailtal, Kärnten, Österreich<br />
+        E-Mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      </p>
+
+      <h2>Grundsatz</h2>
+      <p>
+        Diese Website erhebt, speichert und verarbeitet keine personenbezogenen Daten über das technisch absolut notwendige Maß hinaus. Es werden keine Cookies gesetzt, kein Tracking eingesetzt, keine Analytics-Dienste genutzt und keine Daten an Dritte übermittelt.
+      </p>
+
+      <h2>Hosting</h2>
+      <p>
+        Diese Website wird über Cloudflare (Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA) ausgeliefert. Cloudflare verarbeitet dabei technisch notwendige Verbindungsdaten (IP-Adresse, Zeitstempel, aufgerufene URL) gemäß ihrer eigenen Datenschutzrichtlinie. Ein Angemessenheitsbeschluss der EU-Kommission für die USA besteht seit dem EU-U.S. Data Privacy Framework.
+      </p>
+
+      <h2>Server-Log-Dateien</h2>
+      <p>
+        Der Webserver erfasst bei jedem Zugriff automatisch technische Daten: IP-Adresse, Zeitpunkt, aufgerufene Seite, Browser-Kennung. Diese Daten dienen ausschließlich der technischen Sicherstellung des Betriebs und werden nicht mit anderen Datenquellen zusammengeführt. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einem sicheren Betrieb).
+      </p>
+
+      <h2>Keine Cookies, kein Tracking</h2>
+      <p>
+        Diese Website setzt keine Cookies und verwendet keine Tracking- oder Analyse-Tools. Die einzige clientseitige Speicherung betrifft Ihre Farbschema-Präferenz (hell/dunkel) im localStorage Ihres Browsers. Diese Information verlässt Ihren Browser nicht.
+      </p>
+
+      <h2>Kontaktaufnahme</h2>
+      <p>
+        Wenn Sie per E-Mail Kontakt aufnehmen, werden die von Ihnen mitgeteilten Daten (E-Mail-Adresse, Inhalt) zum Zweck der Bearbeitung Ihrer Anfrage gespeichert. Eine Weitergabe an Dritte erfolgt nicht. Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche Maßnahmen) bzw. Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).
+      </p>
+
+      <h2>Externe Links</h2>
+      <p>
+        Diese Website enthält Links zu externen Websites (z.B. LinkedIn, strali.solutions). Für die Datenverarbeitung auf diesen Websites gelten deren jeweilige Datenschutzbestimmungen.
+      </p>
+
+      <h2>Ihre Rechte</h2>
+      <p>
+        Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Beschwerden können an die Österreichische Datenschutzbehörde (dsb.gv.at) gerichtet werden.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL } from '../lib/constants';
+---
+<BaseLayout title="Impressum" description="Impressum gemäß § 5 ECG.">
+  <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Impressum</h1>
+
+    <div class="prose mt-10">
+      <h2>Angaben gemäß § 5 ECG</h2>
+
+      <p>
+        <strong>Michael Linder</strong><br />
+        Strali Solutions e.U.<br />
+        Nötsch im Gailtal<br />
+        Kärnten, Österreich
+      </p>
+
+      <p>
+        <strong>Unternehmensgegenstand:</strong> IT-Dienstleistungen
+      </p>
+
+      <p>
+        <strong>UID-Nummer:</strong> <code>{"{{UID_HIER}}"}</code><br />
+        <strong>GISA-Zahl:</strong> <code>{"{{GISA_HIER}}"}</code>
+      </p>
+
+      <p>
+        <strong>Kontakt:</strong><br />
+        E-Mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      </p>
+
+      <p>
+        <strong>Mitglied der:</strong> Wirtschaftskammer Kärnten<br />
+        <strong>Anwendbare Rechtsvorschriften:</strong> Gewerbeordnung (GewO)<br />
+        <strong>Aufsichtsbehörde:</strong> Bezirkshauptmannschaft Villach-Land
+      </p>
+
+      <h2>Haftungsausschluss</h2>
+      <p>
+        Trotz sorgfältiger inhaltlicher Kontrolle übernehme ich keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+      </p>
+    </div>
+  </article>
+</BaseLayout>

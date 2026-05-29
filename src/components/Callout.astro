@@ -1,0 +1,19 @@
+---
+interface Props {
+  type?: 'info' | 'warning' | 'tip';
+  title?: string;
+}
+const { type = 'info', title } = Astro.props;
+
+const styles = {
+  info: 'border-brand-primary/30 bg-brand-primary/5',
+  warning: 'border-brand-accent/30 bg-brand-accent/5',
+  tip: 'border-neutral-border bg-neutral-surface',
+} as const;
+---
+<aside class:list={['my-6 rounded-lg border-l-4 p-4', styles[type]]}>
+  {title && <p class="mb-2 text-sm font-bold">{title}</p>}
+  <div class="text-sm leading-relaxed">
+    <slot />
+  </div>
+</aside>
