@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { SITE_URL } from '../../../lib/constants';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft);
@@ -17,8 +18,20 @@ const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'l
 
 const words = post.body?.split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.ceil(words / 200));
+const slug = post.id.replace(/^en\//, '');
+
+const blogPostSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate.toISOString(),
+  author: { '@type': 'Person', name: 'Michael Linder', url: SITE_URL },
+  keywords: post.data.tags.join(', '),
+  url: new URL(`/en/blog/${slug}`, SITE_URL).href,
+};
 ---
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout title={post.data.title} description={post.data.description} jsonLd={blogPostSchema}>
   <article class="py-5 md:py-8">
     <header class="mb-10">
       <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-muted">

@@ -1,0 +1,34 @@
+# rednil.at
+
+> Personal website of Michael Linder, Solutions Architect and owner of Strali Solutions e.U., based in Carinthia, Austria.
+
+## About
+
+Michael Linder is an IT consultant and solutions architect with 20+ years of experience in enterprise IT. He specializes in software architecture, AI integration, Microsoft 365, and DevOps. He currently works as a Senior Solutions Architect for a DAX-listed semiconductor company and runs Strali Solutions e.U., providing IT consulting for SMEs in the DACH region.
+
+## Site Structure
+
+- [About](https://rednil.at/ueber-mich): Background, experience, personal info
+- [Projects](https://rednil.at/projekte): Client and side projects
+- [Blog](https://rednil.at/blog): Technical articles on AI, software architecture, and enterprise IT
+- [Contact](https://rednil.at/kontakt): Email, LinkedIn, X
+
+## Key Topics
+
+- Software Architecture & Enterprise IT
+- AI Integration (RAG, Copilot, Claude, Agents)
+- AI Governance & EU AI Act
+- Microsoft 365 & SharePoint
+- Amateur Radio (OE8YML)
+
+## Links
+
+- Company: https://strali.solutions
+- LinkedIn: https://linkedin.com/in/achildrenmile
+- GitHub: https://github.com/achildrenmile
+- Tech Blog: https://achildrenmile.github.io
+- X: https://x.com/achildrenmile
+
+## Optional
+
+- [Full content for LLMs](https://rednil.at/llms-full.txt)

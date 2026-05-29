@@ -1,7 +1,7 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { getLocaleFromPath, t } from '../lib/i18n';
+import { getLocaleFromPath, t, getAlternateLocalePath } from '../lib/i18n';
 import { SITE_URL } from '../lib/constants';
 import type { Locale } from '../lib/i18n';
 import '../styles/global.css';
@@ -34,6 +34,10 @@ function getOGImagePath(): string {
   return `/og${path}.png`;
 }
 const ogImageURL = new URL(ogImage ?? getOGImagePath(), SITE_URL).href;
+
+// Hreflang alternate URLs
+const alternateDe = new URL(locale === 'de' ? currentPath : getAlternateLocalePath(currentPath, 'de'), SITE_URL).href;
+const alternateEn = new URL(locale === 'en' ? currentPath : getAlternateLocalePath(currentPath, 'en'), SITE_URL).href;
 ---
 <!doctype html>
 <html lang={locale === 'de' ? 'de-AT' : 'en'}>
@@ -45,6 +49,11 @@ const ogImageURL = new URL(ogImage ?? getOGImagePath(), SITE_URL).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
+
+    <!-- Hreflang -->
+    <link rel="alternate" hreflang="de" href={alternateDe} />
+    <link rel="alternate" hreflang="en" href={alternateEn} />
+    <link rel="alternate" hreflang="x-default" href={alternateDe} />
 
     <!-- Favicon -->
     <link rel="icon" href="/favicon.ico" sizes="48x48" />

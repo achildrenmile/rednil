@@ -1,4 +1,4 @@
-import { SITE_URL, CONTACT_EMAIL, LINKEDIN_URL } from './constants';
+import { SITE_URL, CONTACT_EMAIL, LINKEDIN_URL, GITHUB_URL } from './constants';
 
 export const personSchema = {
   '@context': 'https://schema.org',
@@ -6,7 +6,12 @@ export const personSchema = {
   name: 'Michael Linder',
   url: SITE_URL,
   email: CONTACT_EMAIL,
-  sameAs: [LINKEDIN_URL],
+  sameAs: [
+    LINKEDIN_URL,
+    GITHUB_URL,
+    'https://x.com/achildrenmile',
+    'https://strali.solutions',
+  ],
   jobTitle: 'Solutions Architect',
   worksFor: {
     '@type': 'Organization',
@@ -15,11 +20,14 @@ export const personSchema = {
   },
   knowsAbout: [
     'Solutions Architecture',
-    'Platform Engineering',
-    'GitOps',
+    'Software Architecture',
+    'AI Integration',
     'AI Governance',
     'EU AI Act',
+    'Microsoft 365',
     'Enterprise IT',
+    'DevOps',
+    'Amateur Radio',
   ],
   address: {
     '@type': 'PostalAddress',

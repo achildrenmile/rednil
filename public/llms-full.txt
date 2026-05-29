@@ -1,0 +1,61 @@
+# rednil.at - Full Content
+
+> Personal website of Michael Linder, Solutions Architect and owner of Strali Solutions e.U., based in Carinthia, Austria.
+
+## About Michael Linder
+
+Michael Linder is the owner of Strali Solutions e.U. in Noetsch im Gailtal, Carinthia, Austria. He currently works as a contractor for an international semiconductor manufacturer, focusing on software architecture, AI integration, platform templates, and technology strategy. The team builds intranet applications, workflows, and internal platforms. He designs the architectures and brings AI into the mix where it makes sense.
+
+Through Strali Solutions, he advises SMEs on IT topics: Microsoft 365, security, AI strategy, and infrastructure.
+
+### Key Facts
+- 20+ years in Enterprise IT: from .NET to SharePoint to AI integration
+- Full-service IT consulting for SMEs through Strali Solutions: M365, security, AI, infrastructure
+- Contractor: Senior Solutions Architect in the semiconductor industry
+- Interest in AI Governance & EU AI Act
+- Owner of Strali Solutions e.U., Carinthia, Austria
+- Radio amateur OE8YML, contributor at oeradio.at
+
+### Beyond IT
+Father to Tamara and human to three dogs (Kiki, King and Neo). When not at the screen, he's out in the mountains, on the radio as OE8YML, or tinkering with new ideas using a soldering iron, wood, 3D printer, or whatever the project needs. Based in Carinthia.
+
+## Projects (Selection)
+
+### Client Projects
+- Mail Distribution System: Enterprise mail distribution for large-scale campaigns with tracking, scheduling, and APIs
+- Intranet Relaunch: Relaunch for 40,000+ users, SharePoint 2019, microservices on OpenShift
+- Generic Asset Management System: Cross-platform asset management, microservices, multi-agent system, React, OpenShift
+- Video Portal: Video-on-demand for 40,000+ users with worldwide distribution and caching
+- Digital Platform (Consumer Electronics): Cloud architecture on AWS, globally distributed including China
+- IoT Platform: Managing ESP32/microcontrollers, OTA firmware updates, browser-based development
+- MP ERP (Battery Separator Industry): Full value chain ERP system
+- Translation Service: Containerized Node.js microservices with DeepL API
+- Moderated Chat Platform: Real-time chat with moderation workflows for CEO interviews
+
+### Side Projects - Amateur Radio
+- oeradio.at: Information portal for radio amateurs
+- kaernten-funkt.at: Carinthia's most active radio club (280+ members)
+- BOS-ARSA (bosarsa.oeradio.at): Amateur radio association for Austrian authorities
+- BOS-ARSA Log (bosarsalog.oeradio.at): Logging system for emergency radio drills
+- FunkPilot: AI assistant for amateur radio operators
+- oeradio MCP: MCP server for 11 amateur radio tools
+- xOTA Map: All 30+ outdoor radio programs on one interactive map
+- Relaisblick: Interactive repeater map for FM, DMR, 70cm/2m
+- webrx.at: WebRX amateur radio receivers online
+
+### Side Projects - Tech & AI
+- CRISP: AI-powered agent for code repository scaffolding
+- Mastra Doc Intel: Document Intelligence Agent built on Mastra and Claude
+- RAG Reference Architecture: Reference architecture for Retrieval-Augmented Generation
+- AI4U Showcase: Live demo for agentic AI with enterprise integration
+- AI Potential Check (KI-Potenzialcheck): Free assessment for SMEs
+- Tech Blog (achildrenmile.github.io): Technical notes and experiments
+- ferienhaus-bela.at: Holiday home in Carinthia
+- rednil.at: This website
+
+## Contact
+- Email: michael.linder@rednil.at
+- Company: https://strali.solutions
+- LinkedIn: https://linkedin.com/in/achildrenmile
+- GitHub: https://github.com/achildrenmile
+- X: https://x.com/achildrenmile
