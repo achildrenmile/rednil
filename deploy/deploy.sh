@@ -2,62 +2,57 @@
 set -euo pipefail
 
 # Configuration
-GHCR_REPO="ghcr.io/achildrenmile/rednil-web"
 REMOTE_USER="achildrenmile"
 REMOTE_HOST="host-node-01"
 REMOTE_DIR="/home/achildrenmile/rednil"
-COMPOSE_FILE="deploy/docker-compose.yml"
-
-# Git tag for image versioning
-GIT_SHA=$(git rev-parse --short HEAD)
-IMAGE_TAG="${GHCR_REPO}:${GIT_SHA}"
-IMAGE_LATEST="${GHCR_REPO}:latest"
+REPO_URL="https://github.com/achildrenmile/rednil.git"
+IMAGE_NAME="rednil-web"
 
 echo "=== rednil.at Deploy ==="
-echo "Git SHA: ${GIT_SHA}"
-echo ""
+CURRENT_BRANCH=$(git branch --show-current)
+echo "Branch: ${CURRENT_BRANCH}"
 
-# Step 1: Local sanity build
-echo "--- Step 1: Local build check ---"
-pnpm build
-echo "Local build OK."
+# Step 1: Push to GitHub
 echo ""
+echo "--- Step 1: Push to GitHub ---"
+git push origin "${CURRENT_BRANCH}"
+GIT_SHA=$(git rev-parse --short HEAD)
+echo "Pushed. SHA: ${GIT_SHA}"
 
-# Step 2: Docker build (multi-stage, reproducible)
-echo "--- Step 2: Docker build ---"
-docker build -f deploy/Dockerfile -t "${IMAGE_TAG}" -t "${IMAGE_LATEST}" .
-echo "Docker build OK: ${IMAGE_TAG}"
+# Step 2: Clone/pull + build on remote
 echo ""
-
-# Step 3: Push to GHCR
-echo "--- Step 3: Push to GHCR ---"
-docker push "${IMAGE_TAG}"
-docker push "${IMAGE_LATEST}"
-echo "Pushed to GHCR."
-echo ""
-
-# Step 4: Deploy on remote
-echo "--- Step 4: Remote deploy ---"
-ssh "${REMOTE_USER}@${REMOTE_HOST}" bash -s <<REMOTE
+echo "--- Step 2: Remote build + deploy ---"
+ssh "${REMOTE_USER}@${REMOTE_HOST}" bash <<EOF
   set -euo pipefail
-  mkdir -p "${REMOTE_DIR}/deploy"
-REMOTE
 
-# Copy compose file to remote
-scp "${COMPOSE_FILE}" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_DIR}/deploy/docker-compose.yml"
+  # Clone or pull
+  if [ -d "${REMOTE_DIR}/.git" ]; then
+    echo "Pulling latest..."
+    cd "${REMOTE_DIR}"
+    git fetch origin
+    git reset --hard origin/${CURRENT_BRANCH}
+  else
+    echo "Cloning..."
+    git clone "${REPO_URL}" "${REMOTE_DIR}"
+    cd "${REMOTE_DIR}"
+  fi
 
-ssh "${REMOTE_USER}@${REMOTE_HOST}" bash -s <<REMOTE
-  set -euo pipefail
-  cd "${REMOTE_DIR}"
-  docker compose -f deploy/docker-compose.yml pull
+  # Build Docker image on remote
+  echo "Building Docker image..."
+  docker build -f deploy/Dockerfile -t "${IMAGE_NAME}:${GIT_SHA}" -t "${IMAGE_NAME}:latest" .
+
+  # Stop old container if running
+  docker compose -f deploy/docker-compose.yml down 2>/dev/null || true
+
+  # Start new container
   docker compose -f deploy/docker-compose.yml up -d
   echo "Container started."
-REMOTE
-echo ""
+EOF
 
-# Step 5: Healthcheck
-echo "--- Step 5: Healthcheck ---"
-sleep 3
+# Step 3: Healthcheck
+echo ""
+echo "--- Step 3: Healthcheck ---"
+sleep 5
 HEALTH=$(ssh "${REMOTE_USER}@${REMOTE_HOST}" \
   "docker inspect --format='{{.State.Health.Status}}' rednil-web 2>/dev/null || echo 'no-healthcheck'")
 

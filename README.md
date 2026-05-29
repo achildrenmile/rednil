@@ -89,79 +89,47 @@ deploy/             Docker + Nginx + Deploy-Script
 Internet -> Cloudflare Edge -> cloudflared (host-node-01) -> rednil-web (nginx:alpine)
 ```
 
-Container `rednil-web` laeuft auf `host-node-01` im Docker-Netzwerk `cloudflared`.
+Container `rednil-web` laeuft auf `host-node-01` im Docker-Netzwerk `cloudflared-tunnel`.
+Tunnel ist token-basiert, Ingress-Routen werden im Cloudflare Dashboard konfiguriert.
 
 ### Voraussetzungen (einmalig)
 
-#### 1. Cloudflare Domain-Migration
+#### 1. Cloudflare Tunnel Ingress
 
-1. Cloudflare-Account: Domain `rednil.at` hinzufuegen (Free Plan reicht)
-2. Beim Registrar (wo die Domain registriert ist) die Nameserver auf die
-   von Cloudflare angezeigten umstellen
-3. Warten bis Cloudflare die Domain als aktiv meldet (kann bis zu 24h dauern)
+Im Cloudflare Dashboard unter Zero Trust > Networks > Tunnels:
+- Tunnel auswaehlen, der auf `host-node-01` laeuft
+- Public Hostname hinzufuegen:
+  - `rednil.at` -> `http://rednil-web:80`
+  - `www.rednil.at` -> `http://rednil-web:80`
 
-#### 2. DNS-Records bei Cloudflare
+Kein Neustart von cloudflared noetig — token-basierte Tunnels laden die
+Config automatisch nach.
 
-| Typ   | Name          | Inhalt                                        | Proxy |
-|-------|---------------|-----------------------------------------------|-------|
-| CNAME | `rednil.at`   | `<tunnel-uuid>.cfargotunnel.com`              | Ja    |
-| CNAME | `www`         | `<tunnel-uuid>.cfargotunnel.com`              | Ja    |
+#### 2. GitHub-Zugang auf host-node-01
 
-Die Tunnel-UUID findest du in der Cloudflare-Tunnel-Konfiguration auf `host-node-01`.
-
-#### 3. Cloudflare Tunnel Ingress anpassen
-
-In der Tunnel-Config auf `host-node-01` (z.B. `~/.cloudflared/config.yml`) hinzufuegen:
-
-```yaml
-ingress:
-  # ... bestehende Eintraege ...
-  - hostname: rednil.at
-    service: http://rednil-web:80
-  - hostname: www.rednil.at
-    service: http://rednil-web:80
-```
-
-Danach `cloudflared` neu starten.
-
-#### 4. GHCR-Login (auf Laptop und Server)
+Der Remote-Server muss das Repo klonen koennen:
 
 ```bash
-# Auf dem Laptop
-echo $GITHUB_PAT | docker login ghcr.io -u <github-user> --password-stdin
-
-# Auf host-node-01
-ssh achildrenmile@host-node-01
-echo $GITHUB_PAT | docker login ghcr.io -u <github-user> --password-stdin
+ssh achildrenmile@host-node-01 "git ls-remote https://github.com/achildrenmile/rednil.git HEAD"
 ```
 
-GitHub PAT braucht `read:packages` + `write:packages` Scope.
+Falls private: GitHub PAT oder SSH-Key einrichten.
 
-#### 5. Docker-Netzwerk pruefen
-
-```bash
-ssh achildrenmile@host-node-01 "docker network ls | grep cloudflared"
-```
-
-Falls nicht vorhanden: `docker network create cloudflared`
-
-### Erst-Deploy
+### Deploy
 
 ```bash
 ./deploy/deploy.sh
 ```
 
 Das Script macht:
-1. Lokaler `pnpm build` als Sanity-Check
-2. Docker Multi-Stage Build (baut Astro nochmal im Container)
-3. Image taggen mit Git SHA + `:latest`
-4. Push nach GHCR
-5. SSH zu `host-node-01`, `docker compose pull && up -d`
+1. `git push` nach GitHub
+2. SSH zu `host-node-01`: Repo klonen oder pullen
+3. Docker Multi-Stage Build auf dem Server (Astro build + nginx:alpine)
+4. Image taggen mit Git SHA + `:latest`
+5. `docker compose up -d`
 6. Healthcheck
 
 ### Re-Deploy
-
-Nach Aenderungen einfach:
 
 ```bash
 git add . && git commit -m "..."
@@ -172,8 +140,8 @@ git add . && git commit -m "..."
 
 ```bash
 # Auf host-node-01:
-docker compose -f deploy/docker-compose.yml down
-docker run -d --name rednil-web --network cloudflared ghcr.io/achildrenmile/rednil-web:<alter-sha>
+docker compose -f /home/achildrenmile/rednil/deploy/docker-compose.yml down
+docker run -d --name rednil-web --network cloudflared-tunnel rednil-web:<alter-sha>
 ```
 
 ## Entscheidungen
