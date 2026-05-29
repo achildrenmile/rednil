@@ -5,7 +5,7 @@ set -euo pipefail
 REMOTE_USER="achildrenmile"
 REMOTE_HOST="host-node-01"
 REMOTE_DIR="/home/achildrenmile/rednil"
-REPO_URL="https://github.com/achildrenmile/rednil.git"
+REPO_URL="git@github.com:achildrenmile/rednil.git"
 IMAGE_NAME="rednil-web"
 
 echo "=== rednil.at Deploy ==="
