@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { CONTACT_EMAIL } from '../../lib/constants';
+---
+<BaseLayout title="Privacy Policy" description="Privacy policy in accordance with GDPR.">
+  <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+    <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Privacy Policy</h1>
+
+    <div class="prose mt-10">
+      <h2>Controller</h2>
+      <p>
+        Michael Linder, Strali Solutions e.U.<br />
+        Noetsch im Gailtal, Carinthia, Austria<br />
+        Email: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+      </p>
+
+      <h2>Principle</h2>
+      <p>
+        This website does not collect, store, or process personal data beyond what is technically necessary. No cookies are set, no tracking is used, no analytics services are employed, and no data is shared with third parties.
+      </p>
+
+      <h2>Hosting</h2>
+      <p>
+        This website is served via Cloudflare (Cloudflare, Inc., 101 Townsend St, San Francisco, CA 94107, USA). Cloudflare processes technically necessary connection data (IP address, timestamp, requested URL) in accordance with their own privacy policy. An adequacy decision by the EU Commission exists under the EU-U.S. Data Privacy Framework.
+      </p>
+
+      <h2>Server Log Files</h2>
+      <p>
+        The web server automatically records technical data with each access: IP address, timestamp, requested page, browser identifier. This data serves exclusively to ensure technical operation and is not combined with other data sources. Legal basis: Art. 6(1)(f) GDPR (legitimate interest in secure operation).
+      </p>
+
+      <h2>No Cookies, No Tracking</h2>
+      <p>
+        This website does not set cookies and does not use any tracking or analytics tools. The only client-side storage concerns your colour scheme preference (light/dark) in your browser's localStorage. This information does not leave your browser.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        If you contact me by email, the data you provide (email address, content) will be stored for the purpose of processing your enquiry. No disclosure to third parties takes place. Legal basis: Art. 6(1)(b) GDPR (pre-contractual measures) or Art. 6(1)(f) GDPR (legitimate interest).
+      </p>
+
+      <h2>External Links</h2>
+      <p>
+        This website contains links to external websites (e.g. LinkedIn, strali.solutions). The respective privacy policies of those websites apply to data processing there.
+      </p>
+
+      <h2>Your Rights</h2>
+      <p>
+        You have the right to access, rectification, erasure, restriction of processing, data portability, and objection. Complaints may be directed to the Austrian Data Protection Authority (dsb.gv.at).
+      </p>
+    </div>
+  </article>
+</BaseLayout>
