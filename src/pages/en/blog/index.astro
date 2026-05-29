@@ -15,16 +15,20 @@ const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'l
     {allTags.length > 0 && (
       <nav class="mt-6 flex flex-wrap gap-2" aria-label="Topic filter">
         {allTags.map((tag) => (
-          <span class="rounded-full border border-neutral-border px-3 py-1 text-xs font-medium text-neutral-muted transition-colors hover:border-brand-primary hover:text-brand-primary">
+          <button
+            type="button"
+            data-tag={tag}
+            class="tag-btn cursor-pointer rounded-full border border-neutral-border px-3 py-1 text-xs font-medium text-neutral-muted transition-colors hover:border-brand-primary hover:text-brand-primary"
+          >
             {tag}
-          </span>
+          </button>
         ))}
       </nav>
     )}
 
-    <div class="mt-12 space-y-12">
+    <div id="posts" class="mt-12 space-y-12">
       {posts.map((post) => (
-        <article class="group">
+        <article class="group" data-tags={post.data.tags.join(',')}>
           <a href={`/en/blog/${post.id.replace(/^en\//, '')}`} class="block">
             <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-muted">
               <time datetime={post.data.pubDate.toISOString()}>
@@ -51,3 +55,39 @@ const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'l
     )}
   </div>
 </BaseLayout>
+
+<script is:inline>
+  (function() {
+    var active = null;
+    document.querySelectorAll('.tag-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var tag = btn.getAttribute('data-tag');
+        if (active === tag) {
+          active = null;
+          document.querySelectorAll('.tag-btn').forEach(function(b) {
+            b.classList.remove('border-brand-primary', 'text-brand-primary');
+            b.classList.add('border-neutral-border', 'text-neutral-muted');
+          });
+          document.querySelectorAll('#posts article').forEach(function(a) {
+            a.style.display = '';
+          });
+        } else {
+          active = tag;
+          document.querySelectorAll('.tag-btn').forEach(function(b) {
+            if (b.getAttribute('data-tag') === tag) {
+              b.classList.add('border-brand-primary', 'text-brand-primary');
+              b.classList.remove('border-neutral-border', 'text-neutral-muted');
+            } else {
+              b.classList.remove('border-brand-primary', 'text-brand-primary');
+              b.classList.add('border-neutral-border', 'text-neutral-muted');
+            }
+          });
+          document.querySelectorAll('#posts article').forEach(function(a) {
+            var tags = a.getAttribute('data-tags').split(',');
+            a.style.display = tags.indexOf(tag) >= 0 ? '' : 'none';
+          });
+        }
+      });
+    });
+  })();
+</script>
