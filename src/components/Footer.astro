@@ -19,6 +19,6 @@ const year = new Date().getFullYear();
         {t('footer.ai', locale)}
       </a>
     </div>
-    <p class="text-neutral-muted/60">&copy; {year} Michael Linder</p>
+    <p class="text-neutral-muted/60">&copy; {year} Michael Linder · {locale === 'de' ? 'Gebaut mit' : 'Built with'} <a href="https://astro.build" target="_blank" rel="noopener" class="hover:text-neutral-fg">Astro</a>, <a href="https://tailwindcss.com" target="_blank" rel="noopener" class="hover:text-neutral-fg">Tailwind</a> & <a href="https://claude.ai/code" target="_blank" rel="noopener" class="hover:text-neutral-fg">Claude Code</a></p>
   </div>
 </footer>
