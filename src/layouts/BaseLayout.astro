@@ -87,5 +87,33 @@ const ogImageURL = new URL(ogImage ?? getOGImagePath(), SITE_URL).href;
       <slot />
     </main>
     <Footer />
+    <script is:inline>
+      (function() {
+        function updateAll() {
+          var theme = document.documentElement.getAttribute('data-theme');
+          document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+            var sun = btn.querySelector('.icon-sun');
+            var moon = btn.querySelector('.icon-moon');
+            if (theme === 'dark') {
+              sun.classList.remove('hidden');
+              moon.classList.add('hidden');
+            } else {
+              sun.classList.add('hidden');
+              moon.classList.remove('hidden');
+            }
+          });
+        }
+        document.querySelectorAll('.theme-toggle').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            var current = document.documentElement.getAttribute('data-theme');
+            var next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateAll();
+          });
+        });
+        updateAll();
+      })();
+    </script>
   </body>
 </html>
