@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { personSchema } from '../../lib/jsonld';
 
 const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
@@ -8,7 +9,7 @@ const posts = (await getCollection('blog', ({ data }) => data.lang === 'en' && !
 
 const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'long', day: 'numeric' });
 ---
-<BaseLayout description="Solutions Architect with 20+ years of experience. AI Governance, Platform Engineering, Enterprise IT in the DACH region.">
+<BaseLayout description="Solutions Architect with 20+ years of experience. AI Governance, Platform Engineering, Enterprise IT in the DACH region." jsonLd={personSchema}>
   <!-- Hero -->
   <section class="mx-auto max-w-5xl px-6 pt-24 pb-16 md:pt-32 md:pb-24">
     <div class="max-w-3xl">

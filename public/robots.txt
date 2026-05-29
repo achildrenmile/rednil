@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rednil.at/sitemap-index.xml

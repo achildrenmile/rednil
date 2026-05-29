@@ -10,6 +10,7 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  jsonLd?: Record<string, unknown>;
 }
 
 const currentPath = Astro.url.pathname;
@@ -18,12 +19,21 @@ const {
   title: pageTitle,
   description = t('site.description', locale),
   ogImage,
+  jsonLd,
 } = Astro.props;
 
 const siteTitle = t('site.title', locale);
 const title = pageTitle ? `${pageTitle} — ${siteTitle}` : siteTitle;
 const canonicalURL = new URL(currentPath, SITE_URL);
-const ogImageURL = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
+
+// Auto-generate OG image path if not explicitly provided
+function getOGImagePath(): string {
+  const path = currentPath.replace(/\/$/, '') || '/';
+  if (path === '/') return '/og/home.png';
+  if (path === '/en') return '/og/en/home.png';
+  return `/og${path}.png`;
+}
+const ogImageURL = new URL(ogImage ?? getOGImagePath(), SITE_URL).href;
 ---
 <!doctype html>
 <html lang={locale === 'de' ? 'de-AT' : 'en'}>
@@ -45,14 +55,19 @@ const ogImageURL = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
+    <meta property="og:image" content={ogImageURL} />
     <meta property="og:locale" content={locale === 'de' ? 'de_AT' : 'en_US'} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- JSON-LD -->
+    {jsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    )}
 
     <!-- Theme: no-flash inline script -->
     <script is:inline>

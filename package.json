@@ -18,9 +18,11 @@
     "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/inter-tight": "^5.2.7",
     "@fontsource-variable/newsreader": "^5.2.10",
+    "@resvg/resvg-js": "^2.6.2",
     "@tailwindcss/vite": "^4.3.0",
     "astro": "^6.4.2",
     "lucide-astro": "^0.556.0",
+    "satori": "^0.26.0",
     "tailwindcss": "^4.3.0"
   }
 }

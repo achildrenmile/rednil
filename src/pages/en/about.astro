@@ -1,7 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { personSchema } from '../../lib/jsonld';
 ---
-<BaseLayout title="About" description="Michael Linder — Solutions Architect, owner of Strali Solutions e.U., based in Carinthia, Austria.">
+<BaseLayout title="About" description="Michael Linder — Solutions Architect, owner of Strali Solutions e.U., based in Carinthia, Austria." jsonLd={personSchema}>
   <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
     <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">About</h1>
 
