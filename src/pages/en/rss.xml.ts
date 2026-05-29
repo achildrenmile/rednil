@@ -7,7 +7,7 @@ export async function GET(context: APIContext) {
     .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
   return rss({
-    title: 'Michael Linder — Blog',
+    title: 'Michael Linder · Blog',
     description: 'Thoughts on Platform Engineering, AI Governance, and Enterprise IT.',
     site: context.site!,
     items: posts.map((post) => ({

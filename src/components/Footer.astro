@@ -10,8 +10,7 @@ const year = new Date().getFullYear();
 <footer class="border-t border-neutral-border">
   <div class="mx-auto flex max-w-2xl flex-col gap-3 px-6 py-10 text-sm text-neutral-muted">
     <p>
-      {t('footer.strali', locale)} —
-      <a href={STRALI_URL} class="underline underline-offset-2 hover:text-neutral-fg" target="_blank" rel="noopener">strali.solutions</a>
+      {t('footer.strali', locale)} · <a href={STRALI_URL} class="underline underline-offset-2 hover:text-neutral-fg" target="_blank" rel="noopener">strali.solutions</a>
     </p>
     <div class="flex gap-4">
       <a href={getLocalePath(locale === 'de' ? '/impressum' : '/imprint', locale)} class="hover:text-neutral-fg">

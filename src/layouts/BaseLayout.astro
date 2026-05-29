@@ -23,7 +23,7 @@ const {
 } = Astro.props;
 
 const siteTitle = t('site.title', locale);
-const title = pageTitle ? `${pageTitle} — ${siteTitle}` : siteTitle;
+const title = pageTitle ? `${pageTitle} · ${siteTitle}` : siteTitle;
 const canonicalURL = new URL(currentPath, SITE_URL);
 
 // Auto-generate OG image path if not explicitly provided
