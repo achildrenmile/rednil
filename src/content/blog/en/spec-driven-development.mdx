@@ -1,0 +1,47 @@
+---
+title: "Why Spec-driven Development Is the New Pair Programming"
+description: "Specifications aren't bureaucracy. They are the most effective tool for building software that does what it's supposed to, especially in the age of AI-generated code."
+pubDate: 2026-05-15
+tags: ["platform-engineering", "development", "spec-driven"]
+lang: en
+---
+import Callout from '../../../components/Callout.astro';
+
+There is a question I have never been able to shake in twenty years of enterprise IT: *Why do we build things that nobody asked for?*
+
+Not on purpose. Nobody sits down in the morning and decides to work past the brief. It happens because there is a chasm between "we talked about it" and "we wrote it down". Pair programming made that chasm smaller. Two people thinking at the same time catch more misunderstandings than one alone. But pair programming solves a communication problem at the code level. That is no longer enough.
+
+## The specification as a thinking tool
+
+Spec-driven development reverses the order. Before a single line of code is written, a document exists that describes what the system should do. Not a requirements document in the nineties sense. Not a hundred-page PDF that nobody reads. Instead, a living, concise specification that answers three questions:
+
+1. **What exactly should happen?** Not: "User should be able to enter data." But: "User sends a JSON object with fields X, Y, Z to endpoint POST /api/v2/reports. The system validates against schema S, persists in table T, and returns HTTP 201 with a Location header."
+
+2. **What should not happen?** The negative cases. The edge cases. The answer to what happens with invalid input, missing permissions, or a timeout from the downstream API.
+
+3. **Why are we doing it this way?** The architectural context. Not every decision needs a justification, but the non-obvious ones do.
+
+## Spec-driven in the era of AI-generated code
+
+This is where it gets concrete. Since LLMs can generate code, productivity in many teams has measurably increased. But the error rate has not decreased at the same pace. Why? Because an LLM excels at writing *some* code that *somehow* works. What an LLM does not do: ask the right question. Validate whether the requirement even makes sense. Recognise that the endpoint it is building contradicts another one.
+
+<Callout type="tip" title="Practical tip">
+  Write the specification so that you could give it to an LLM as a prompt. If the spec is good enough for an LLM, it is good enough for your team. The side effect: you simultaneously have an excellent foundation for automated tests.
+</Callout>
+
+Spec-driven development makes AI-generated code verifiable. The specification becomes the contract: what the LLM (or the human) delivers is measured against the spec. If the implementation deviates, the discussion is not "does it work?" but "does it match the spec?". This objectivity is worth its weight in gold.
+
+## Why it does not replace pair programming, but completes it
+
+Pair programming remains valuable: as a knowledge transfer tool, as quality assurance in the moment of writing. But pair programming assumes that both people know what they are building. Spec-driven development ensures that this knowledge exists before the first keystroke happens.
+
+In my platform engineering projects, a pattern has established itself: the specification is reviewed in the pull request before the code. Only once the spec is agreed upon does implementation begin. It feels slow at first. After three sprints, it feels like a safety net you never want to give up.
+
+## What changes
+
+- Less rework. Significantly less.
+- Clearer code reviews, because reviewers check against the spec instead of their gut feeling.
+- Better documentation as a by-product, not as an afterthought.
+- AI tools shift from risk factor to productivity lever, because the output becomes measurable.
+
+The question is not whether spec-driven development costs time. Of course it does. The question is whether it costs less time than the alternative. And the alternative is rework, misunderstandings, and code that nobody understands three months later. After twenty years, I know the answer.

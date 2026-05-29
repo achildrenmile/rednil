@@ -1,0 +1,46 @@
+---
+title: "Der Unterschied zwischen Programmieren und Entwickeln"
+description: "Programmieren ist Code-Produktion. Entwickeln ist Systemdenken plus Verantwortung. Im Zeitalter von KI ist dieser Unterschied wichtiger denn je."
+pubDate: 2026-05-08
+tags: ["development", "architecture", "ai"]
+lang: de
+---
+import Callout from '../../components/Callout.astro';
+
+Es gibt eine Unterscheidung, auf die ich in Gesprächen mit Junior-Engineers, mit Managern und zunehmend mit Menschen, die glauben, dass LLMs Entwickler ersetzen werden, immer wieder zurückkomme. Es ist der Unterschied zwischen Programmieren und Entwickeln.
+
+Programmieren ist das Herstellen von Code. Die Übersetzung einer definierten Anforderung in eine funktionierende Implementierung. Programmieren ist ein Handwerk. Es erfordert Können, Sorgfalt und Erfahrung mit einer bestimmten Sprache oder einem Framework. Es ist auch, und das ist der Teil, der Menschen verunsichert, zunehmend automatisierbar.
+
+Entwickeln ist etwas ganz anderes.
+
+## Was Entwickeln wirklich bedeutet
+
+Entwickeln umfasst Programmieren so, wie Architektur Maurerarbeiten umfasst. Ein Entwickler schreibt nicht nur Code. Ein Entwickler entscheidet, *welcher* Code geschrieben werden soll, *warum* er so geschrieben werden soll, und *was passiert*, wenn er kaputt geht. Entwickeln ist Systemdenken, angewandt auf Software: Abhängigkeiten verstehen, Fehlermodi vorhersagen, für Veränderung entwerfen, und, ganz entscheidend, Verantwortung für die Ergebnisse übernehmen.
+
+Wenn ein Entwickler ein Authentifizierungssystem baut, ist der Programmier-Teil der Code, der Anmeldedaten validiert. Der Entwicklungs-Teil ist die Entscheidung über Session-Dauer, das Bedrohungsmodell, die Logging-Strategie, den Wiederherstellungspfad für kompromittierte Konten und die ehrliche Einschätzung, was das Team langfristig tatsächlich warten kann.
+
+<Callout type="tip" title="Ein nützlicher Test">
+  Wenn Sie eine Aufgabe vollständig in einem Prompt beschreiben können und ein korrektes Ergebnis von einem LLM bekommen, war es Programmieren. Wenn der schwierigste Teil war, herauszufinden, was Sie dem LLM sagen sollen, war es Entwickeln.
+</Callout>
+
+## Warum diese Unterscheidung jetzt wichtig ist
+
+Large Language Models sind bemerkenswert gut im Programmieren. Sie produzieren syntaktisch korrekten, oft funktional korrekten Code mit einer Geschwindigkeit, die kein Mensch erreicht. Was sie nicht tun, was sie in ihrer aktuellen Form grundsätzlich nicht tun können, ist Entwickeln. Sie verstehen den Business-Kontext nicht. Sie wissen nicht, dass die API, die sie aufrufen, in sechs Monaten abgekündigt wird. Sie bedenken nicht, dass die Datenbank, die sie abfragen, einem Team gehört, das Breaking Changes freitags deployt.
+
+Das ist keine Limitierung, die durch die nächste Modellgeneration behoben wird. Es ist eine strukturelle Eigenschaft. Entwickeln erfordert kontextuelles Wissen, das außerhalb der Codebasis existiert: in den Köpfen von Menschen, in der Organisationskultur, in regulatorischen Rahmenbedingungen, in der Geschichte von Entscheidungen, die das System geformt haben. Ein LLM kann Informationen über diese Dinge verarbeiten, wenn man sie bereitstellt. Aber zu erkennen, *welche* Informationen relevant sind, das ist die Aufgabe des Entwicklers.
+
+## Die Verantwortungsdimension
+
+Es gibt ein drittes Element, das Entwickeln vom Programmieren trennt: Verantwortung. Wenn ein System ausfällt, ist jemand verantwortlich. Nicht in einem abstrakten Schuldzuweisungs-Sinne, sondern ganz konkret: Jemand muss verstehen, was schiefgegangen ist, warum es schiefgegangen ist und wie man verhindert, dass es wieder passiert.
+
+Programmieren weist die Verantwortung dem Code zu. Entwickeln weist die Verantwortung der Person zu, die entschieden hat, dass der Code existieren soll.
+
+Im Zeitalter von KI-generiertem Code wird diese Unterscheidung schärfer. Wenn ein LLM eine Funktion produziert, die eine Sicherheitslücke einführt, wer ist verantwortlich? Nicht das LLM. Der Entwickler, der den Output akzeptiert hat, ihn reviewed hat (oder nicht) und in Produktion deployt hat. Verantwortung überträgt sich nicht auf Werkzeuge. Sie bleibt bei den Menschen, die sie benutzen.
+
+## Was das für Karrieren bedeutet
+
+Wenn Sie am Anfang Ihrer Karriere stehen und sich fragen, ob KI Ihre Fähigkeiten überflüssig machen wird: Lernen Sie Entwickeln, nicht nur Programmieren. Lernen Sie, die richtigen Fragen zu stellen. Lernen Sie, Systeme zu lesen, nicht nur Code. Lernen Sie, "das sollte nicht gebaut werden" zu sagen, wenn das die ehrliche Antwort ist.
+
+Die Nachfrage nach Menschen, die Code produzieren können, sinkt. Die Nachfrage nach Menschen, die entscheiden können, welcher Code existieren soll, die Verantwortung dafür übernehmen und ihn über Jahre warten können, diese Nachfrage geht nirgendwohin. Wenn überhaupt, steigt sie, weil das Volumen an Code auf der Welt schneller wächst als die Kapazität, ihn zu verstehen.
+
+Programmieren ist eine Fähigkeit. Entwickeln ist eine Disziplin. 2026 war der Unterschied zwischen den beiden nie folgenreicher.
