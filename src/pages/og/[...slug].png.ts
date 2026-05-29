@@ -13,12 +13,10 @@ export async function getStaticPaths() {
   const staticPages = [
     { slug: 'home', title: 'Michael Linder', description: 'Solutions Architect · AI Governance · Enterprise IT' },
     { slug: 'ueber-mich', title: 'Über mich', description: 'Solutions Architect mit 20+ Jahren Erfahrung' },
-    { slug: 'expertise', title: 'Expertise', description: 'Platform Engineering, AI Governance, Enterprise IT' },
-    { slug: 'blog', title: 'Blog', description: 'Gedanken zu Platform Engineering, AI Governance und Enterprise IT' },
+{ slug: 'blog', title: 'Blog', description: 'Gedanken zu Platform Engineering, AI Governance und Enterprise IT' },
     { slug: 'en/home', title: 'Michael Linder', description: 'Solutions Architect · AI Governance · Enterprise IT' },
     { slug: 'en/about', title: 'About', description: 'Solutions Architect with 20+ years of experience' },
-    { slug: 'en/expertise', title: 'Expertise', description: 'Platform Engineering, AI Governance, Enterprise IT' },
-    { slug: 'en/blog', title: 'Blog', description: 'Thoughts on Platform Engineering, AI Governance, and Enterprise IT' },
+{ slug: 'en/blog', title: 'Blog', description: 'Thoughts on Platform Engineering, AI Governance, and Enterprise IT' },
   ];
 
   const staticPaths = staticPages.map(({ slug, title, description }) => ({
