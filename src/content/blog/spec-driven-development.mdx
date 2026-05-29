@@ -1,0 +1,47 @@
+---
+title: "Warum Spec-driven Development das neue Pair Programming ist"
+description: "Spezifikationen sind keine Bürokratie. Sie sind das effektivste Werkzeug, um Software zu bauen, die tut, was sie soll — besonders in Zeiten von KI-generiertem Code."
+pubDate: 2026-05-15
+tags: ["platform-engineering", "development", "spec-driven"]
+lang: de
+---
+import Callout from '../../components/Callout.astro';
+
+Es gibt eine Frage, die ich in zwanzig Jahren Enterprise IT nie losgeworden bin: *Warum bauen wir Dinge, die niemand so bestellt hat?*
+
+Nicht absichtlich. Niemand setzt sich morgens hin und entscheidet, am Auftrag vorbei zu arbeiten. Es passiert, weil zwischen „wir haben uns das besprochen" und „wir haben das aufgeschrieben" ein Abgrund liegt. Pair Programming hat diesen Abgrund kleiner gemacht — zwei Leute, die gleichzeitig denken, fangen mehr Missverständnisse auf als einer allein. Aber Pair Programming löst ein Kommunikationsproblem auf der Code-Ebene. Das reicht nicht mehr.
+
+## Die Spezifikation als Denkwerkzeug
+
+Spec-driven Development dreht die Reihenfolge um. Bevor eine Zeile Code geschrieben wird, existiert ein Dokument, das beschreibt, was das System tun soll. Nicht ein Pflichtenheft im Sinne der neunziger Jahre. Kein hundert Seiten starkes PDF, das niemand liest. Sondern eine lebendige, knappe Spezifikation, die drei Fragen beantwortet:
+
+1. **Was genau soll passieren?** Nicht: „User soll Daten eingeben können." Sondern: „User sendet ein JSON-Objekt mit den Feldern X, Y, Z an den Endpunkt POST /api/v2/reports. Das System validiert gegen Schema S, persistiert in Tabelle T und gibt HTTP 201 mit Location-Header zurück."
+
+2. **Was soll nicht passieren?** Die Negativfälle. Die Edge Cases. Die Antwort auf die Frage, was bei ungültigem Input, fehlender Berechtigung oder einem Timeout der Downstream-API passiert.
+
+3. **Warum machen wir das so?** Der architektonische Kontext. Nicht jede Entscheidung braucht eine Begründung, aber die nicht-offensichtlichen schon.
+
+## Spec-driven in der Ära von KI-generiertem Code
+
+Hier wird es konkret. Seit LLMs Code generieren können, hat sich die Produktivität in vielen Teams messbar erhöht. Aber die Fehlerquote hat sich nicht im gleichen Maß verringert. Warum? Weil ein LLM exzellent darin ist, *irgendeinen* Code zu schreiben, der *irgendwie* funktioniert. Was ein LLM nicht tut: die richtige Frage stellen. Validieren, ob die Anforderung überhaupt sinnvoll ist. Erkennen, dass der Endpunkt, den es baut, im Widerspruch zu einem anderen steht.
+
+<Callout type="tip" title="Praxis-Tipp">
+  Schreiben Sie die Spezifikation so, dass Sie sie einem LLM als Prompt geben könnten. Wenn die Spec gut genug für ein LLM ist, ist sie gut genug für Ihr Team. Der Nebeneffekt: Sie haben gleichzeitig eine ausgezeichnete Grundlage für automatisierte Tests.
+</Callout>
+
+Spec-driven Development macht KI-generierten Code überprüfbar. Die Spezifikation wird zum Vertrag: Was das LLM (oder der Mensch) liefert, wird gegen die Spec gemessen. Weicht die Implementierung ab, ist die Diskussion nicht „funktioniert das?" sondern „entspricht das der Spec?". Diese Versachlichung ist Gold wert.
+
+## Warum es kein Pair Programming ersetzt, aber es vervollständigt
+
+Pair Programming bleibt wertvoll — als Wissenstransfer-Werkzeug, als Qualitätsprüfung im Moment des Schreibens. Aber Pair Programming setzt voraus, dass beide wissen, was sie bauen. Spec-driven Development stellt sicher, dass dieses Wissen existiert, bevor der erste Tastenanschlag passiert.
+
+In meinen Platform-Engineering-Projekten hat sich ein Muster etabliert: Die Spezifikation wird im Pull Request vor dem Code reviewed. Erst wenn die Spec steht, wird implementiert. Das fühlt sich anfangs langsam an. Nach drei Sprints fühlt es sich an wie ein Sicherheitsnetz, das man nie wieder hergeben will.
+
+## Was sich ändert
+
+- Weniger Rework. Deutlich weniger.
+- Klarere Code-Reviews, weil Reviewer gegen die Spec prüfen statt gegen ihr Bauchgefühl.
+- Bessere Dokumentation als Nebenprodukt, nicht als Nacharbeit.
+- KI-Tools werden vom Risikofaktor zum Produktivitätshebel, weil der Output messbar wird.
+
+Die Frage ist nicht, ob Spec-driven Development Zeit kostet. Natürlich tut es das. Die Frage ist, ob es weniger Zeit kostet als die Alternative — und die Alternative heißt Rework, Missverständnisse und Code, den in drei Monaten niemand mehr versteht. Nach zwanzig Jahren kenne ich die Antwort.

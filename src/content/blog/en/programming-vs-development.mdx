@@ -1,0 +1,46 @@
+---
+title: "The Programming vs Development Distinction"
+description: "Programming is code production. Development is systems thinking plus responsibility. In the age of AI, this distinction matters more than ever."
+pubDate: 2026-05-08
+tags: ["development", "architecture", "ai"]
+lang: en
+---
+import Callout from '../../../components/Callout.astro';
+
+There is a distinction I keep coming back to in conversations with junior engineers, with managers, and increasingly with people who believe that LLMs will replace developers. It is the difference between programming and development.
+
+Programming is the act of producing code. It is the translation of a defined requirement into a working implementation. Programming is a craft. It requires skill, attention to detail, and experience with a particular language or framework. It is also — and this is the part that makes people uncomfortable — increasingly automatable.
+
+Development is something else entirely.
+
+## What development actually means
+
+Development encompasses programming the way architecture encompasses bricklaying. A developer does not just write code. A developer decides *what* code should be written, *why* it should be written that way, and *what happens* when it breaks. Development is systems thinking applied to software: understanding dependencies, predicting failure modes, designing for change, and — critically — taking responsibility for the outcomes.
+
+When a developer builds an authentication system, the programming part is the code that validates credentials. The development part is the decision about session duration, the threat model, the logging strategy, the recovery path for compromised accounts, and the honest assessment of what the team can actually maintain long-term.
+
+<Callout type="tip" title="A useful test">
+  If you can fully describe a task in a prompt and get a correct result from an LLM, it was programming. If the hardest part was figuring out what to tell the LLM, it was development.
+</Callout>
+
+## Why this distinction matters now
+
+Large language models are remarkably good at programming. They produce syntactically correct, often functionally correct code at a speed no human can match. What they do not do — what they fundamentally cannot do in their current form — is development. They do not understand the business context. They do not know that the API they are calling will be deprecated in six months. They do not consider that the database they are querying belongs to a team that ships breaking changes on Fridays.
+
+This is not a limitation that will be fixed by the next model generation. It is a structural characteristic. Development requires contextual knowledge that exists outside the codebase, in the heads of people, in organisational culture, in regulatory frameworks, in the history of decisions that shaped the system. An LLM can process information about these things if you provide it. But identifying *which* information matters — that is the developer's job.
+
+## The responsibility dimension
+
+There is a third element that separates development from programming: responsibility. When a system fails, someone is accountable. Not in an abstract, blame-culture way, but in the concrete sense of: someone has to understand what went wrong, why it went wrong, and how to prevent it from happening again.
+
+Programming assigns responsibility to the code. Development assigns responsibility to the person who decided the code should exist.
+
+In the age of AI-generated code, this distinction becomes sharper. If an LLM produces a function that introduces a security vulnerability, who is responsible? Not the LLM. The developer who accepted the output, reviewed it (or did not), and deployed it into production. Responsibility does not transfer to tools. It stays with the humans who use them.
+
+## What this means for careers
+
+If you are early in your career and wondering whether AI will make your skills obsolete: learn development, not just programming. Learn to ask the right questions. Learn to read systems, not just code. Learn to say "this should not be built" when that is the honest answer.
+
+The demand for people who can produce code is decreasing. The demand for people who can decide what code should exist, take responsibility for it, and maintain it over years — that demand is not going anywhere. If anything, it is increasing, because the volume of code in the world is growing faster than the capacity to understand it.
+
+Programming is a skill. Development is a discipline. In 2026, the difference between the two has never been more consequential.
