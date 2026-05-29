@@ -1,12 +1,12 @@
 @import "tailwindcss";
 @import "@fontsource-variable/jetbrains-mono";
-@import "@fontsource-variable/inter-tight";
+@import "@fontsource-variable/ibm-plex-sans";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
   --font-display: "JetBrains Mono Variable", "monospace";
-  --font-body: "Inter Tight Variable", "system-ui", sans-serif;
+  --font-body: "IBM Plex Sans Variable", "system-ui", sans-serif;
 }
 
 @theme inline {
