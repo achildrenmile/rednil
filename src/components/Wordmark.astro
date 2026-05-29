@@ -1,20 +1,15 @@
 ---
 interface Props {
   class?: string;
+  showText?: boolean;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', showText = true } = Astro.props;
 ---
-<!--
-  Platzhalter-Wortmarke. Ersetzen durch echtes Logo:
-  Option A: <img src="/logo.svg" alt="rednil" class="h-8" />
-  Option B: SVG-Code direkt hier einfuegen
--->
-<span
-  class:list={[
-    'font-display text-2xl font-bold tracking-tight text-neutral-fg',
-    className,
-  ]}
-  aria-label="rednil"
->
-  red<span class="text-brand-primary">nil</span>
+<span class:list={['flex items-center gap-2.5', className]}>
+  <img src="/logo.png" alt="rednil" class="h-9 w-auto" />
+  {showText && (
+    <span class="font-body text-lg font-bold tracking-tight text-brand-primary uppercase">
+      rednil
+    </span>
+  )}
 </span>

@@ -16,38 +16,43 @@ const nav = [
   { label: t('nav.contact', locale), href: getLocalePath(locale === 'de' ? '/kontakt' : '/contact', locale) },
 ];
 ---
-<header class="border-b border-neutral-border bg-neutral-bg/80 backdrop-blur-sm">
-  <nav class="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-    <a href={getLocalePath('/', locale)} class="transition-opacity hover:opacity-80">
+<header class="sticky top-0 z-50 border-b border-neutral-border/50 bg-neutral-bg/90 backdrop-blur-md">
+  <div class="accent-line"></div>
+  <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
+    <a href={getLocalePath('/', locale)} class="transition-transform hover:scale-[1.02]">
       <Wordmark />
     </a>
 
-    <!-- Desktop nav -->
-    <div class="hidden items-center gap-6 md:flex">
+    <!-- Desktop -->
+    <div class="hidden items-center gap-1 md:flex">
       {nav.map(({ label, href }) => (
         <a
           href={href}
           class:list={[
-            'text-sm font-medium transition-colors hover:text-brand-primary',
-            currentPath === href ? 'text-brand-primary' : 'text-neutral-muted',
+            'relative rounded-lg px-3 py-2 text-sm font-medium transition-all',
+            currentPath === href
+              ? 'text-brand-primary bg-brand-primary/8'
+              : 'text-neutral-muted hover:text-neutral-fg hover:bg-neutral-surface',
           ]}
         >
           {label}
         </a>
       ))}
-      <LangSwitch />
-      <ThemeToggle />
+      <div class="ml-2 flex items-center gap-1 border-l border-neutral-border pl-3">
+        <LangSwitch />
+        <ThemeToggle />
+      </div>
     </div>
 
-    <!-- Mobile menu button -->
-    <div class="flex items-center gap-2 md:hidden">
+    <!-- Mobile -->
+    <div class="flex items-center gap-1 md:hidden">
       <LangSwitch />
       <ThemeToggle />
       <button
         id="mobile-menu-btn"
         type="button"
         aria-label="Menu"
-        class="cursor-pointer rounded-md p-2 text-neutral-muted hover:text-neutral-fg"
+        class="cursor-pointer rounded-lg p-2 text-neutral-muted transition-colors hover:bg-neutral-surface hover:text-neutral-fg"
       >
         <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="4" x2="20" y1="12" y2="12"></line>
@@ -58,15 +63,17 @@ const nav = [
     </div>
   </nav>
 
-  <!-- Mobile nav -->
+  <!-- Mobile menu -->
   <div id="mobile-menu" class="hidden border-t border-neutral-border md:hidden">
-    <div class="flex flex-col gap-1 px-6 py-4">
+    <div class="flex flex-col gap-1 px-4 py-3">
       {nav.map(({ label, href }) => (
         <a
           href={href}
           class:list={[
-            'rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-neutral-surface hover:text-brand-primary',
-            currentPath === href ? 'text-brand-primary' : 'text-neutral-muted',
+            'rounded-lg px-4 py-2.5 text-sm font-medium transition-all',
+            currentPath === href
+              ? 'text-brand-primary bg-brand-primary/8'
+              : 'text-neutral-muted hover:bg-neutral-surface hover:text-neutral-fg',
           ]}
         >
           {label}
