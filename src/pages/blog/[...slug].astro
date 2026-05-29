@@ -20,7 +20,7 @@ const words = post.body?.split(/\s+/).length ?? 0;
 const readingTime = Math.max(1, Math.ceil(words / 200));
 ---
 <BaseLayout title={post.data.title} description={post.data.description}>
-  <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+  <article class="py-12 md:py-20">
     <header class="mb-10">
       <div class="flex flex-wrap items-center gap-3 text-sm text-neutral-muted">
         <time datetime={post.data.pubDate.toISOString()}>
