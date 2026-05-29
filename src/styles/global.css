@@ -65,15 +65,15 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.5rem;
   font-weight: 700;
   letter-spacing: -0.025em;
-  margin-top: 1.5em;
-  margin-bottom: 0.5em;
+  margin-top: 1em;
+  margin-bottom: 0.25em;
 }
 .prose h3 {
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 700;
-  margin-top: 1.25em;
-  margin-bottom: 0.35em;
+  margin-top: 0.75em;
+  margin-bottom: 0.2em;
 }
 .prose a {
   color: var(--color-brand-primary);
