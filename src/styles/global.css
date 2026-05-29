@@ -1,11 +1,11 @@
 @import "tailwindcss";
-@import "@fontsource-variable/newsreader";
+@import "@fontsource-variable/jetbrains-mono";
 @import "@fontsource-variable/inter-tight";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
-  --font-display: "Newsreader Variable", "Georgia", serif;
+  --font-display: "JetBrains Mono Variable", "monospace";
   --font-body: "Inter Tight Variable", "system-ui", sans-serif;
 }
 
