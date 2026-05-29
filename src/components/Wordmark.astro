@@ -1,15 +1,9 @@
 ---
 interface Props {
   class?: string;
-  showText?: boolean;
 }
-const { class: className = '', showText = true } = Astro.props;
+const { class: className = '' } = Astro.props;
 ---
-<span class:list={['flex items-center gap-2.5', className]}>
-  <img src="/logo.png" alt="rednil" class="h-9 w-auto" />
-  {showText && (
-    <span class="font-body text-lg font-bold tracking-tight text-brand-primary uppercase">
-      rednil
-    </span>
-  )}
+<span class:list={['flex items-center gap-2', className]}>
+  <img src="/logo.png" alt="rednil" class="h-8 w-auto" />
 </span>
