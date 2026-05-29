@@ -19,6 +19,7 @@ export const ui = {
     'blog.readingtime': 'Min. Lesezeit',
     'blog.tags': 'Themen',
     'blog.allposts': 'Alle Beiträge',
+    'footer.ai': 'KI-Transparenz',
   },
   en: {
     'site.title': 'Michael Linder',
@@ -36,6 +37,7 @@ export const ui = {
     'blog.readingtime': 'min read',
     'blog.tags': 'Topics',
     'blog.allposts': 'All posts',
+    'footer.ai': 'AI Transparency',
   },
 } as const;
 
@@ -75,6 +77,8 @@ export function getAlternateLocalePath(currentPath: string, targetLocale: Locale
     '/imprint': '/impressum',
     '/datenschutz': '/privacy',
     '/privacy': '/datenschutz',
+    '/ki-transparenz': '/ai-transparency',
+    '/ai-transparency': '/ki-transparenz',
   };
 
   if (targetLocale === defaultLocale) {

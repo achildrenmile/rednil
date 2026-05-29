@@ -20,6 +20,9 @@ const year = new Date().getFullYear();
       <a href={getLocalePath(locale === 'de' ? '/datenschutz' : '/privacy', locale)} class="hover:text-neutral-fg">
         {t('footer.privacy', locale)}
       </a>
+      <a href={getLocalePath(locale === 'de' ? '/ki-transparenz' : '/ai-transparency', locale)} class="hover:text-neutral-fg">
+        {t('footer.ai', locale)}
+      </a>
     </div>
     <p class="text-neutral-muted/60">&copy; {year} Michael Linder</p>
   </div>
