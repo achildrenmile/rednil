@@ -1,0 +1,75 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { getLocaleFromPath, t } from '../lib/i18n';
+import { SITE_URL } from '../lib/constants';
+import type { Locale } from '../lib/i18n';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const currentPath = Astro.url.pathname;
+const locale = getLocaleFromPath(currentPath) as Locale;
+const {
+  title: pageTitle,
+  description = t('site.description', locale),
+  ogImage,
+} = Astro.props;
+
+const siteTitle = t('site.title', locale);
+const title = pageTitle ? `${pageTitle} — ${siteTitle}` : siteTitle;
+const canonicalURL = new URL(currentPath, SITE_URL);
+const ogImageURL = ogImage ? new URL(ogImage, SITE_URL).href : undefined;
+---
+<!doctype html>
+<html lang={locale === 'de' ? 'de-AT' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImageURL && <meta property="og:image" content={ogImageURL} />}
+    <meta property="og:locale" content={locale === 'de' ? 'de_AT' : 'en_US'} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageURL && <meta name="twitter:image" content={ogImageURL} />}
+
+    <!-- Theme: no-flash inline script -->
+    <script is:inline>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+  <body class="flex min-h-screen flex-col bg-neutral-bg text-neutral-fg">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

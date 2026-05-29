@@ -1,0 +1,31 @@
+---
+import { getLocaleFromPath, t, getLocalePath } from '../lib/i18n';
+import { STRALI_URL } from '../lib/constants';
+import type { Locale } from '../lib/i18n';
+
+const currentPath = Astro.url.pathname;
+const locale = getLocaleFromPath(currentPath) as Locale;
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-neutral-border bg-neutral-surface">
+  <div class="mx-auto max-w-5xl px-6 py-12">
+    <div class="flex flex-col items-center gap-6 text-center text-sm text-neutral-muted">
+      <p>
+        {t('footer.strali', locale)}
+        {' — '}
+        <a href={STRALI_URL} class="underline underline-offset-2 transition-colors hover:text-brand-primary" target="_blank" rel="noopener">
+          strali.solutions
+        </a>
+      </p>
+      <div class="flex gap-6">
+        <a href={getLocalePath(locale === 'de' ? '/impressum' : '/imprint', locale)} class="transition-colors hover:text-neutral-fg">
+          {t('footer.imprint', locale)}
+        </a>
+        <a href={getLocalePath(locale === 'de' ? '/datenschutz' : '/privacy', locale)} class="transition-colors hover:text-neutral-fg">
+          {t('footer.privacy', locale)}
+        </a>
+      </div>
+      <p>&copy; {year} Michael Linder</p>
+    </div>
+  </div>
+</footer>

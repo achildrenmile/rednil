@@ -6,39 +6,47 @@
  * Theme / Brand Colors
  * =====================
  * TAUSCHEN, sobald Logo vorhanden — siehe README.md Abschnitt "Logo & Farben".
- * Alle Farben in oklch() für perceptual uniformity.
+ * Alle Farben in oklch() fuer perceptual uniformity.
  */
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
-  /* Brand — aus Logo extrahieren und hier tauschen */
-  --color-brand-primary: oklch(0.45 0.15 25);
-  --color-brand-accent: oklch(0.65 0.12 80);
-
-  /* Neutral Light */
-  --color-neutral-bg: oklch(0.99 0.005 80);
-  --color-neutral-fg: oklch(0.20 0.01 60);
-  --color-neutral-muted: oklch(0.55 0.02 60);
-  --color-neutral-border: oklch(0.90 0.01 60);
-  --color-neutral-surface: oklch(0.97 0.005 80);
-
   /* Fonts */
   --font-display: "Newsreader Variable", "Georgia", serif;
   --font-body: "Inter Tight Variable", "system-ui", sans-serif;
 }
 
-/* Dark mode overrides */
-@variant dark {
-  @theme {
-    --color-brand-primary: oklch(0.65 0.15 25);
-    --color-brand-accent: oklch(0.75 0.12 80);
-    --color-neutral-bg: oklch(0.15 0.01 60);
-    --color-neutral-fg: oklch(0.95 0.005 80);
-    --color-neutral-muted: oklch(0.65 0.02 60);
-    --color-neutral-border: oklch(0.25 0.01 60);
-    --color-neutral-surface: oklch(0.20 0.01 60);
-  }
+@theme inline {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-accent: var(--brand-accent);
+  --color-neutral-bg: var(--neutral-bg);
+  --color-neutral-fg: var(--neutral-fg);
+  --color-neutral-muted: var(--neutral-muted);
+  --color-neutral-border: var(--neutral-border);
+  --color-neutral-surface: var(--neutral-surface);
+}
+
+/* Light mode (default) */
+:root {
+  --brand-primary: oklch(0.45 0.15 25);
+  --brand-accent: oklch(0.65 0.12 80);
+  --neutral-bg: oklch(0.99 0.005 80);
+  --neutral-fg: oklch(0.20 0.01 60);
+  --neutral-muted: oklch(0.55 0.02 60);
+  --neutral-border: oklch(0.90 0.01 60);
+  --neutral-surface: oklch(0.97 0.005 80);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --brand-primary: oklch(0.65 0.15 25);
+  --brand-accent: oklch(0.75 0.12 80);
+  --neutral-bg: oklch(0.15 0.01 60);
+  --neutral-fg: oklch(0.95 0.005 80);
+  --neutral-muted: oklch(0.65 0.02 60);
+  --neutral-border: oklch(0.25 0.01 60);
+  --neutral-surface: oklch(0.20 0.01 60);
 }
 
 /* Base styles */

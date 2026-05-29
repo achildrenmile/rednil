@@ -1,0 +1,16 @@
+---
+import { getLocaleFromPath, getAlternateLocalePath } from '../lib/i18n';
+
+const currentPath = Astro.url.pathname;
+const currentLocale = getLocaleFromPath(currentPath);
+const targetLocale = currentLocale === 'de' ? 'en' : 'de';
+const targetPath = getAlternateLocalePath(currentPath, targetLocale);
+const label = targetLocale.toUpperCase();
+---
+<a
+  href={targetPath}
+  class="rounded-md px-2 py-1 text-sm font-medium text-neutral-muted transition-colors hover:text-neutral-fg"
+  aria-label={`Switch to ${targetLocale === 'en' ? 'English' : 'Deutsch'}`}
+>
+  {label}
+</a>
