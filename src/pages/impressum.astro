@@ -3,40 +3,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { CONTACT_EMAIL } from '../lib/constants';
 ---
 <BaseLayout title="Impressum" description="Impressum gemäß § 5 ECG.">
-  <article class="mx-auto max-w-3xl px-6 py-16 md:py-24">
+  <article class="mx-auto max-w-2xl px-6 py-16 md:py-24">
     <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Impressum</h1>
 
     <div class="prose mt-10">
       <h2>Angaben gemäß § 5 ECG</h2>
 
       <p>
-        <strong>Michael Linder</strong><br />
+        <strong>Ing. Michael Linder, MSc</strong><br />
         Strali Solutions e.U.<br />
-        Nötsch im Gailtal<br />
-        Kärnten, Österreich
+        Nötsch 219<br />
+        9611 Nötsch im Gailtal<br />
+        Österreich
       </p>
 
       <p>
-        <strong>Unternehmensgegenstand:</strong> IT-Dienstleistungen
+        <strong>Unternehmensgegenstand:</strong> IT-Dienstleistungen, IT-Beratung, Softwareentwicklung
       </p>
 
       <p>
-        <strong>UID-Nummer:</strong> <code>{"{{UID_HIER}}"}</code><br />
-        <strong>GISA-Zahl:</strong> <code>{"{{GISA_HIER}}"}</code>
+        <strong>UID-Nummer:</strong> ATU72580414<br />
+        <strong>Firmenbuchnummer:</strong> 474736t<br />
+        <strong>Firmenbuchgericht:</strong> Landesgericht Klagenfurt
       </p>
 
       <p>
         <strong>Kontakt:</strong><br />
+        Telefon: +43 (0)676 96 58 016<br />
         E-Mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
       </p>
 
       <p>
-        <strong>Mitglied der:</strong> Wirtschaftskammer Kärnten<br />
+        <strong>Mitglied der:</strong> Wirtschaftskammer Kärnten, Fachgruppe UBIT<br />
         <strong>Anwendbare Rechtsvorschriften:</strong> Gewerbeordnung (GewO)<br />
         <strong>Aufsichtsbehörde:</strong> Bezirkshauptmannschaft Villach-Land
       </p>
 
       <h2>Haftungsausschluss</h2>
+      <p>
+        Die Inhalte dieser Website werden mit größtmöglicher Sorgfalt erstellt. Der Autor übernimmt jedoch keine Gewähr für die Aktualität, Korrektheit, Vollständigkeit oder Qualität der bereitgestellten Informationen. Haftungsansprüche, die sich auf Schäden materieller oder ideeller Art beziehen, die durch die Nutzung oder Nichtnutzung der dargebotenen Informationen verursacht wurden, sind grundsätzlich ausgeschlossen.
+      </p>
       <p>
         Trotz sorgfältiger inhaltlicher Kontrolle übernehme ich keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
       </p>
