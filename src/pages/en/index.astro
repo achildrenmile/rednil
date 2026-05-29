@@ -12,7 +12,7 @@ const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'l
 ---
 <BaseLayout description="Solutions Architect with 20+ years of experience. AI Governance, Platform Engineering, Enterprise IT in the DACH region." jsonLd={personSchema}>
 
-  <section class="pt-12 pb-10 md:pt-20 md:pb-14">
+  <section class="pt-8 pb-8 md:pt-12 md:pb-10">
     <div class="flex items-center gap-5">
       <img src="/michael.png" alt="Michael Linder" class="size-16 rounded-full md:size-20" />
       <h1 class="font-display text-3xl font-bold tracking-tight md:text-4xl">Hi, I'm Michael.</h1>
@@ -32,7 +32,7 @@ const dateFormatter = new Intl.DateTimeFormat('en', { year: 'numeric', month: 'l
   </section>
 
   {posts.length > 0 && (
-    <section class="border-t border-neutral-border py-10 md:py-14">
+    <section class="border-t border-neutral-border py-8 md:py-10">
       <h2 class="font-display text-xl font-bold tracking-tight">Recent Posts</h2>
       <div class="mt-8 flex flex-col gap-8">
         {posts.map((post) => (
