@@ -4,7 +4,7 @@
 
 ## About
 
-Michael Linder is an IT consultant and solutions architect with 20+ years of experience in enterprise IT. He specializes in software architecture, AI integration, Microsoft 365, and DevOps. He currently works as a Senior Solutions Architect for a DAX-listed semiconductor company and runs Strali Solutions e.U., providing IT consulting for SMEs in the DACH region.
+Michael Linder is an IT consultant and solutions architect specializing in software architecture, AI integration, Microsoft 365, and DevOps. He currently works as a Senior Solutions Architect for a DAX-listed semiconductor company and runs Strali Solutions e.U., providing IT consulting for SMEs in the DACH region.
 
 ## Site Structure
 

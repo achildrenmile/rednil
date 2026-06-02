@@ -4,58 +4,91 @@ description: "The EU AI Act does not only affect tech giants. What small and med
 pubDate: 2026-05-22
 tags: ["ai-governance", "eu-ai-act", "compliance"]
 lang: en
-# TODO: needs update — DE version rewritten 2026-06-02 (Art. 4, KMU-Erleichterungen, Stand 2026)
 ---
 import Callout from '../../../components/Callout.astro';
 
-The EU AI Act is in force. The regulation has been effective since August 2024, transition periods are running, and from August 2026 most obligations for operators of AI systems will apply. For tech corporations with their own legal departments, this is a challenge, but not an existential one. For small and medium enterprises in the DACH region, the picture looks different: if you do not have an in-house compliance team, you are facing a regulatory framework that seems overwhelming at first glance.
+The EU AI Act has been in force since August 2024, but it applies in stages. This creates a misconception I keep hearing from business owners: "2026 is still far away." It is not. Two obligations have been in effect since February 2025, and one of them applies to virtually every company using AI.
 
-The good news: for most SMEs, the actual effort is more manageable than the headlines suggest. The bad news: manageable does not mean zero.
+Let me sort this out.
 
-## Who is actually affected?
+## The timeline
 
-The EU AI Act distinguishes between providers (who develop or place AI systems on the market) and deployers (who use AI systems). Most SMEs are deployers. They do not build their own models; they use tools: an AI-powered CRM, automated invoice processing, a chatbot in customer service.
+The AI Act does not kick in all at once. It rolls out in stages:
+
+- **August 2024:** The regulation enters into force.
+- **February 2025:** Prohibited practices (Art. 5) and the AI literacy obligation (Art. 4) apply.
+- **August 2025:** Obligations for providers of general-purpose AI models (GPAI), governance structures, sanctions rules.
+- **August 2026:** Most obligations, including requirements for high-risk systems under Annex III.
+- **August 2027:** High-risk systems falling under existing product safety legislation (Annex I).
+
+For most SMEs, two dates matter: February 2025 (already past) and August 2026.
+
+## Who is affected?
+
+The AI Act distinguishes between providers, who develop or place AI systems on the market, and deployers, who use them. Most SMEs are deployers. They do not build their own models; they use tools: an AI-powered CRM, automated invoice processing, a chatbot in customer service. As a deployer, you have fewer obligations than a provider, but not none.
 
 <Callout type="info" title="Key question">
-  The right question is not "Are we using AI?" but rather: "Are we deploying a system that falls under the EU AI Act definition, and if so, in which risk category?"
+  The right question is not "Are we using AI?" but rather: "Are we deploying a system that falls under the AI Act definition, and if so, in which risk category?"
 </Callout>
 
-The risk categories of the EU AI Act are at the heart of the regulation:
+## What already applies: Art. 4 and the prohibitions
 
-- **Prohibited practices:** Social scoring, subliminal manipulation, real-time remote biometric identification in public spaces (with exceptions for law enforcement). Typically irrelevant for SMEs.
-- **High risk:** AI systems in areas such as employment (personnel selection!), creditworthiness, education, critical infrastructure. This is where the main compliance effort lies for SMEs.
-- **Limited risk:** Systems with transparency obligations, e.g. chatbots must be identifiable as such.
-- **Minimal risk:** Everything else. No special obligations.
+This is the point almost everyone misses. Two things have been enforceable since February 2025.
 
-## Three concrete steps for 2026
+First, the **prohibited practices** under Art. 5: social scoring, subliminal manipulation, real-time remote biometric identification in public spaces. Rarely relevant for ordinary SMEs in day-to-day operations, but worth knowing that this line is non-negotiable.
 
-### 1. Inventory: What are we using?
+Second, and this very likely affects you, the **AI literacy obligation** under Art. 4. Anyone deploying AI in their organisation must ensure that staff working with it have sufficient AI competence, proportionate to their role and the context of use. There is no certification requirement and no prescribed form. But it is your responsibility: a documented briefing, clear usage rules, demonstrated basic understanding. If your company uses ChatGPT, Copilot, or a comparable tool and has no rules in place, you are technically already non-compliant.
 
-Sounds trivial, but it is the most important step. Create a list of all AI-based tools in your company. This includes not only obvious systems like ChatGPT integrations, but also embedded AI in existing software: automated suggestions in your ERP, AI-powered spam filters in your email solution, image recognition in your quality control.
+## The risk categories
 
-For each system: Who is the provider? What data goes in? What decisions or recommendations come out? Are people affected (employees, customers)?
+The AI Act works with four tiers:
 
-### 2. Risk assessment: Where do we stand?
+- **Prohibited practices:** see above. Typically irrelevant for SMEs.
+- **High risk:** AI in employment (recruitment, performance evaluation), creditworthiness, education, critical infrastructure. This is where the real compliance effort lies, if it applies to you.
+- **Limited risk:** Transparency obligations. A chatbot must be identifiable as AI, AI-generated content must be labelled.
+- **Minimal risk:** everything else. No special obligations beyond Art. 4.
 
-Assign each system to a risk category. The critical question: are you using AI in recruitment? In credit scoring? In safety-critical processes? If yes, the high-risk requirements apply: risk management system, data governance, technical documentation, human oversight, accuracy and robustness.
+The honest assessment: the majority of SME use cases fall into limited or minimal risk. High risk becomes relevant where AI co-decides about people, above all in recruitment.
 
-If not, and this applies to the majority of SMEs, your obligations are limited to transparency and basic understanding.
+## Three steps for 2026
 
-### 3. Documentation and governance
+### 1. Inventory
 
-Even for minimal-risk systems: you should document which AI systems you deploy, who is internally responsible, and what usage policies apply. This is not a bureaucratic exercise but risk management. If an AI system makes a flawed decision, you want to know who is in charge and what processes kick in.
+Create a list of all AI-powered tools in your company. Not just the obvious ones like ChatGPT integrations, but also embedded AI: suggestions in your ERP, filters in your email solution, image recognition in quality control. For each system: who is the provider, what data goes in, what decisions come out, are people affected?
 
-<Callout type="warning" title="Note">
-  Switzerland is not directly subject to the EU AI Act, but Swiss companies providing services to EU customers or deploying AI systems on the EU market fall under the regulation. Similar to GDPR.
-</Callout>
+### 2. Risk assessment
 
-## What business leaders do not need to do
+Assign each system to a category. The decisive question: are you using AI in recruitment, credit scoring, or safety-critical processes? If yes, the high-risk requirements apply (risk management, data governance, technical documentation, human oversight, robustness). If not, your obligations are essentially limited to transparency and Art. 4.
+
+### 3. Documentation and responsibility
+
+Record which systems you deploy, who is internally responsible, and what usage rules apply. This is not an end in itself. If a system makes a flawed decision, you want to know who is in charge and what process kicks in.
+
+## The reliefs that hardly anyone mentions
+
+The AI Act deliberately mentions SMEs dozens of times and provides targeted relief (including Art. 62):
+
+- Priority, free-of-charge access to regulatory sandboxes (protected testing environments).
+- Reduced fees for conformity assessments.
+- Simplified technical documentation; the European Commission is providing templates.
+- For fines, SMEs are subject to the lower of the applicable caps. Proportionality is built in.
+
+In Austria, there are concrete contact points: the RTR AI Service Centre as an information hub (including an AI Act chatbot) and the WKO AI guide. Both free, both tailored to SMEs.
+
+## What you do not need to do
 
 - **Certify your own AI models.** You are a deployer, not a provider. Certification is the provider's responsibility.
-- **Declare every spreadsheet formula as AI.** The AI Act defines AI systems specifically. Rule-based automation typically does not fall under it.
-- **Hire an AI compliance officer.** Not yet. But having a designated responsible person is sensible.
-- **Panic.** The regulation is demanding, but doable. If you survived GDPR, you will survive the AI Act.
+- **Declare every automation as AI.** Rule-based logic typically does not fall under the AI Act definition.
+- **Hire an AI officer immediately.** A designated responsible person is sufficient for now.
 
-## Next steps
+## Where to start
 
-The pragmatic approach: start with the inventory. Today. Not next month, not after the next strategy meeting. A simple spreadsheet with columns for *System*, *Provider*, *Purpose*, *Affected persons*, *Risk category* is enough to begin with. On that basis, you can decide whether you need external advice, or whether your actual compliance effort is smaller than feared.
+Two things, both doable this week. First: check whether you meet Art. 4. Does your team use AI, and is there a documented briefing and usage policy? If not, that is the first gap. Second: start the inventory. A spreadsheet with columns for *System*, *Provider*, *Purpose*, *Affected persons*, *Risk category* is enough to begin with. On that basis, you can decide whether you need external advice or whether the effort is smaller than feared.
+
+<Callout type="warning" title="Note">
+  Switzerland is not directly subject to the EU AI Act. However, Swiss companies deploying AI systems on the EU market or providing services to EU customers fall under the regulation, similar to GDPR.
+</Callout>
+
+<Callout type="warning" title="Status">
+  As of May 2026. This post is an assessment, not legal advice. When in doubt, clarify your specific case with a lawyer or the RTR AI Service Centre.
+</Callout>

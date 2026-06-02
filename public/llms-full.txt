@@ -9,7 +9,7 @@ Michael Linder is the owner of Strali Solutions e.U. in Noetsch im Gailtal, Cari
 Through Strali Solutions, he advises SMEs on IT topics: Microsoft 365, security, AI strategy, and infrastructure.
 
 ### Key Facts
-- 20+ years in Enterprise IT: from .NET to SharePoint to AI integration
+- Enterprise IT background: from .NET to SharePoint to AI integration
 - Full-service IT consulting for SMEs through Strali Solutions: M365, security, AI, infrastructure
 - Contractor: Senior Solutions Architect in the semiconductor industry
 - Interest in AI Governance & EU AI Act

@@ -4,8 +4,66 @@ description: "AI has become a premise, not a conclusion. On the reflex to add AI
 pubDate: 2026-06-02
 tags: ["ai", "development", "platform-engineering", "architecture"]
 lang: en
-# TODO: needs translation from DE version (erst-das-problem-dann-das-werkzeug.mdx)
 ---
 import Callout from '../../../components/Callout.astro';
 
-This post has not been translated yet. Please read the [German version](/blog/erst-das-problem-dann-das-werkzeug/).
+I see it in almost every technical discussion. AI here, AI there. And in almost every client conversation, someone says: "We need AI." What rarely comes before that is the question: what for, exactly.
+
+That is my point. AI has become a premise, not a conclusion. There was a time when you started with a problem. You weighed your options, and sometimes the answer was AI. Today, the starting point is "we need to use AI", and then a place is found for it.
+
+To be clear: I use agentic coding tools every day. I build agentic systems. That is exactly why I often say: you do not need this.
+
+I am not against AI. I am against the reflex of adding it everywhere without asking what it actually makes better in that specific spot.
+
+## Vibe coding is great, until it is not
+
+The latest craze is vibe coding. Do not think first, then build. Just prompt and ship. For a throwaway prototype, that is great. For experimenting, for quick learning, for something that will be gone tomorrow.
+
+The problem starts when it becomes an attitude. When "just build it quickly" becomes the default for things that people end up depending on. Code is produced in minutes. The question of whether it does the right thing and who is accountable for it cannot be prompted away.
+
+An example. A business unit wanted to "quickly build a prototype" for an order management system and run it in the cloud. Supabase for auth and backend, quickly set up, works. The problem: the prototype gradually became a production system. People worked with it, entered data, built processes around it. At some point, IT was supposed to take it over. Then came the code review. Then the security checks. Then the question of how to integrate Supabase Auth into the existing identity management. The answer to all of that was: you cannot, not without essentially rebuilding it. The prototype was not the problem. The problem was that nobody had defined the moment when it stopped being one.
+
+## At scale, it multiplies
+
+It gets really expensive one level up, in larger organisations.
+
+As long as building was expensive, the effort itself enforced discipline. Before anyone built something new, they checked whether it already existed. Building from scratch was too costly to waste. Cheap building removes that brake.
+
+The consequence: five teams independently build their own, slightly different version of the same thing. Each one works. None knows about the others. The costs have not disappeared. They have shifted and multiplied. Now there are five versions that someone has to maintain, secure, and patch. Indefinitely.
+
+The fallacy is in one word. "Easy to build" was confused with "cheap". The build has become cheap. Operations and consolidation have not.
+
+With agentic AI, this becomes a realistic scenario: three departments independently have their own data-loading pipelines built, their own APIs, their own small platforms. Each solution works on its own. But IT ends up facing three different architectures for the same problem and has to operate, secure, and evolve all three. Not because anyone made a mistake, but because building has become so cheap that nobody asked first whether it already exists.
+
+The answer is not to build more slowly. The answer is a platform layer. Golden paths, templates, shared building blocks, so that the easy path is also the common path. The cheaper building gets, the more you need this layer, not less.
+
+## AI that nobody needs is risk that nobody needs
+
+There is something else that tends to be overlooked. Every AI system you do not actually need still has to be operated, secured, and accounted for. It is also surface area that you will eventually have to justify to regulators. Anyone adding AI everywhere is voluntarily creating effort and risk that has nothing to do with the actual business.
+
+## The question that is rarely asked
+
+What helps is unspectacular. Four questions before anything gets built.
+
+<Callout type="info" title="Four questions before every build">
+- What problem are we actually solving?
+- What does the current solution cost us?
+- What does good look like? How would we recognise success?
+- And only then: is AI the right tool for this, or would a rule, a script, or a better process do just as well?
+</Callout>
+
+More often than not, the simple solution wins. That is not a step backwards. That is engineering.
+
+## Where AI actually delivers
+
+There are plenty of cases where AI is the right choice. Otherwise I would not use it every day.
+
+Quick HTML dashboards and reports where structure matters, not pixels. Rough research and formatting that would otherwise eat up an hour and deserve no thought. And above all: learning new technology. AI as a sparring partner that explains how a framework works in an hour, where I would otherwise spend a day reading documentation. That saves real time, and it breaks nothing.
+
+The difference is not whether AI is involved. The difference is whether a problem came first or a tool that went looking for one.
+
+## Start with why
+
+Starting with why is not anti-innovation. It is the opposite. Those who start with why spend their budget on what pays off, not on AI on every slide.
+
+Understand the problem first. Then choose the tool. Then build.
