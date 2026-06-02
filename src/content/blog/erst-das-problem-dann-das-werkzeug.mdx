@@ -1,69 +1,171 @@
 ---
-title: "Erst das Problem, dann das Werkzeug"
-description: "AI ist zur Voraussetzung geworden, nicht zur Schlussfolgerung. Über den Reflex, AI überall einzubauen, über vibe coding und über die Frage, die zu selten fällt: warum eigentlich."
+title: "Start with Why, auch bei AI"
+description: "AI ist vielerorts zur Voraussetzung geworden statt zum Ergebnis einer Überlegung. Über vibe coding, Wildwuchs in großen Organisationen und die Frage, die zu selten fällt: brauchen wir das wirklich?"
 pubDate: 2026-06-02
 tags: ["ai", "development", "platform-engineering", "architecture"]
 lang: de
 ---
 import Callout from '../../components/Callout.astro';
 
-Ich erlebe es in fast jeder technischen Diskussion. AI hier, AI dort. Und in fast jedem Kundengespräch fällt der Satz: "Wir brauchen AI." Was davor selten fällt, ist die Frage, wofür eigentlich.
+Ich erlebe es inzwischen in fast jeder technischen Diskussion. AI hier, AI dort. Und in fast jedem Kundengespräch fällt irgendwann der Satz: „Wir brauchen AI."
 
-Genau darum geht es mir. AI ist zur Voraussetzung geworden, nicht zur Schlussfolgerung. Früher stand am Anfang ein Problem. Man hat Optionen abgewogen, und manchmal war die Antwort AI. Heute steht am Anfang "wir müssen AI einsetzen", und dann wird ein Platz dafür gesucht.
+Was deutlich seltener gefragt wird: Wofür eigentlich?
 
-Damit das klar ist: Ich nutze agentic coding tools täglich. Ich baue agentische Systeme. Genau deshalb sage ich oft: Das braucht ihr nicht.
+Genau das beschäftigt mich. AI ist vielerorts zur Voraussetzung geworden und nicht mehr das Ergebnis einer Überlegung.
 
-Ich bin nicht gegen AI. Ich bin gegen den Reflex, sie überall einzubauen, ohne zu fragen, was sie an dieser Stelle eigentlich besser macht.
+Früher stand ein Problem im Raum. Man hat verschiedene Möglichkeiten betrachtet und manchmal war AI die passende Antwort. Heute wird oft zuerst beschlossen, dass AI eingesetzt werden soll, und danach sucht man nach einer Stelle, an der sie irgendwie hineinpasst.
 
-## Vibe coding ist großartig, bis es das nicht mehr ist
+Damit das nicht falsch verstanden wird: Ich nutze agentic Coding Tools täglich. Ich baue selbst agentische Systeme. Genau deshalb sage ich in manchen Diskussionen auch: „Dafür braucht ihr keine AI."
 
-Der letzte Schrei heißt vibe coding. Nicht erst denken, dann bauen, sondern prompten und shippen. Für einen Wegwerf-Prototyp ist das super. Zum Ausprobieren, zum schnellen Lernen, für etwas, das morgen wieder weg ist.
+Nicht weil ich etwas dagegen hätte. Sondern weil ich finde, dass man zuerst verstehen sollte, welches Problem man lösen möchte und erst danach entscheidet, welches Werkzeug dafür sinnvoll ist.
 
-Das Problem beginnt, wenn daraus eine Haltung wird. Wenn "schnell mal einbauen" zum Standard für Dinge wird, von denen am Ende Leute abhängen. Code entsteht in Minuten. Die Frage, ob er das Richtige tut und wer dafür geradesteht, lässt sich nicht wegprompten.
+## Vibe Coding ist großartig, bis es das nicht mehr ist
 
-Ein Beispiel. Ein Fachbereich wollte "schnell mal einen Prototypen" für ein Auftragserfassungssystem bauen und in der Cloud laufen lassen. Supabase für Auth und Backend, schnell aufgesetzt, funktioniert. Das Problem: Aus dem Prototyp wurde schleichend ein produktives System. Leute haben damit gearbeitet, Daten eingegeben, Prozesse drum herum gebaut. Irgendwann sollte die IT das übernehmen. Dann kam die Code Review. Dann die Security Checks. Dann die Frage, wie man Supabase Auth in die bestehende Benutzerverwaltung integriert. Die Antwort auf all das war: gar nicht, ohne es im Grunde neu zu bauen. Der Prototyp war nicht das Problem. Das Problem war, dass niemand den Moment definiert hatte, ab dem er keiner mehr ist.
+Der aktuelle Hype heißt „Vibe Coding". Nicht lange planen, sondern loslegen. Prompt eingeben, Ergebnis anschauen, weitermachen.
 
-## Im Großen vervielfacht es sich
+Für Prototypen ist das fantastisch. Man kann Ideen in Stunden statt in Wochen testen. Man lernt schneller. Man bekommt früh Feedback. Für Experimente oder Wegwerf-Prototypen ist das ein enormer Fortschritt.
 
-Richtig teuer wird es eine Ebene höher, in größeren Organisationen.
+Schwierig wird es, wenn aus dieser Geschwindigkeit eine Gewohnheit wird.
 
-Solange Bauen teuer war, hat der Aufwand selbst für Disziplin gesorgt. Bevor jemand etwas neu gebaut hat, hat er geschaut, ob es das schon gibt. Neubau war zu teuer, um ihn zu verschwenden. Billiges Bauen nimmt diese Bremse weg.
+Code lässt sich heute in Minuten erzeugen. Die Fragen, die danach kommen, bleiben aber dieselben wie früher: Ist die Lösung sicher? Ist sie wartbar? Passt sie in die bestehende Landschaft? Wer übernimmt die Verantwortung, wenn daraus ein produktives System wird?
 
-Die Folge: Fünf Teams bauen unabhängig voneinander ihre eigene, leicht abweichende Variante derselben Sache. Jede funktioniert. Keines weiß von den anderen. Die Kosten sind nicht verschwunden. Sie haben sich verschoben und vervielfacht. Jetzt gibt es fünf Versionen, die jemand warten, absichern und patchen muss. Auf Dauer.
+Diese Fragen verschwinden nicht, nur weil der erste Prototyp schnell entstanden ist.
 
-Der Denkfehler steckt in einem Wort. "Einfach zu bauen" wurde mit "billig" verwechselt. Der Build ist billig geworden. Betrieb und Vereinheitlichung sind es nicht.
+Vor einiger Zeit habe ich genau das erlebt. Ein Fachbereich wollte „schnell mal" ein Auftragserfassungssystem bauen. Technisch war das heute keine große Sache: etwas Frontend, ein Cloud-Backend, Supabase für Authentifizierung und Datenhaltung. Innerhalb kurzer Zeit lief ein funktionierender Prototyp.
 
-Mit agentic AI wird das zum realistischen Szenario: Drei Abteilungen lassen sich unabhängig voneinander eigene Data-Loading-Pipelines bauen, eigene APIs, eigene kleine Plattformen. Jede Lösung funktioniert für sich. Aber die IT steht am Ende vor drei unterschiedlichen Architekturen für dasselbe Problem und muss alle drei betreiben, absichern und weiterentwickeln. Nicht weil jemand einen Fehler gemacht hat, sondern weil Bauen so billig geworden ist, dass niemand vorher gefragt hat, ob es das schon gibt.
+Dann passierte etwas, das häufig passiert.
 
-Die Antwort darauf ist nicht, langsamer zu bauen. Die Antwort ist eine Plattform-Ebene. Golden Paths, Templates, geteilte Bausteine, damit der einfache Weg auch der gemeinsame Weg ist. Je billiger Bauen wird, desto mehr braucht es diese Ebene, nicht weniger.
+Menschen begannen damit zu arbeiten. Daten wurden erfasst. Prozesse entstanden rund um das System. Aus dem Prototyp wurde schleichend ein produktives Werkzeug.
 
-## AI, die niemand braucht, ist Risiko, das niemand braucht
+Irgendwann sollte die IT übernehmen.
 
-Dazu kommt etwas, das gern übersehen wird. Jedes AI-System, das man eigentlich nicht braucht, muss man trotzdem betreiben, absichern und verantworten. Es ist auch Fläche, die man irgendwann gegenüber Regulierung erklären muss. Wer überall AI einbaut, schafft sich freiwillig Aufwand und Risiko, das mit dem eigentlichen Geschäft nichts zu tun hat.
+Dann kamen die üblichen Fragen: Code Review. Security Checks. Integration in bestehende Benutzerverwaltung und Berechtigungskonzepte. Betrieb. Monitoring.
 
-## Die Frage, die zu selten fällt
+Und plötzlich zeigte sich, dass die ursprünglichen Entscheidungen genau für das getroffen worden waren, was man damals bauen wollte: einen schnellen Prototypen. Nicht für ein System, das langfristig Teil der Unternehmenslandschaft sein sollte.
 
-Was hilft, ist unspektakulär. Vier Fragen, bevor irgendetwas gebaut wird.
+Der Prototyp war nicht das Problem.
+
+Das Problem war, dass niemand definiert hatte, ab welchem Punkt er keiner mehr ist.
+
+## Wenn Bauen billiger wird
+
+Noch spannender wird es auf Organisationsebene.
+
+Lange Zeit war Softwareentwicklung teuer genug, um eine gewisse Disziplin zu erzwingen. Bevor ein Team etwas neu gebaut hat, wurde geprüft, ob es dafür bereits eine Lösung gibt. Nicht unbedingt aus architektonischer Überzeugung, sondern weil ein Neubau Zeit, Geld und Ressourcen gekostet hat.
+
+Heute ist diese Hürde deutlich kleiner geworden.
+
+Mit modernen Frameworks, Cloud-Plattformen und AI-gestützter Entwicklung lassen sich funktionierende Lösungen in erstaunlich kurzer Zeit erstellen. Das ist grundsätzlich etwas Positives.
+
+Die Kehrseite ist allerdings, dass die natürliche Bremse wegfällt.
+
+Wenn Bauen sehr günstig wird, entsteht schnell die Versuchung, Probleme lokal zu lösen. Jedes Team optimiert für seine eigene Situation. Jeder Bereich baut sich die Lösung, die gerade am besten passt.
+
+Das Ergebnis sieht dann oft so aus:
+
+Fünf Teams bauen fünf Varianten derselben Anwendung. Alle funktionieren. Alle erfüllen ihren Zweck. Alle wurden mit guten Absichten entwickelt.
+
+Und trotzdem entsteht ein Problem.
+
+Denn die Kosten sind nicht verschwunden. Sie haben lediglich den Ort gewechselt.
+
+Statt einmal zu entwickeln, betreibt man plötzlich fünf Lösungen. Fünf Deployments. Fünf Sicherheitskonzepte. Fünf Integrationen. Fünf Systeme, die gepflegt, aktualisiert und dokumentiert werden müssen.
+
+Der eigentliche Denkfehler liegt darin, „einfach zu bauen" mit „billig" gleichzusetzen.
+
+Der erste Build ist billig geworden.
+
+Betrieb, Wartung, Governance und Standardisierung sind es nicht.
+
+## Agentic AI verstärkt diesen Effekt
+
+Agentische Systeme werden diese Entwicklung eher beschleunigen als bremsen.
+
+Wenn mehrere Teams ihre eigenen AI-Assistenten nutzen, um Data-Pipelines, APIs oder interne Anwendungen zu erstellen, entstehen sehr schnell funktionierende Lösungen. Jede einzelne kann für ihren jeweiligen Anwendungsfall absolut sinnvoll sein.
+
+Aus Sicht der zentralen IT ergibt sich aber ein anderes Bild.
+
+Plötzlich existieren drei unterschiedliche Architekturen für dasselbe Problem. Drei verschiedene Wege, Daten zu verarbeiten. Drei verschiedene Integrationsansätze. Drei verschiedene Betriebsmodelle.
+
+Niemand hat dabei zwingend etwas falsch gemacht.
+
+Die Teams haben lediglich die Möglichkeiten genutzt, die ihnen zur Verfügung standen.
+
+Genau deshalb glaube ich, dass die Antwort nicht darin liegt, langsamer zu werden oder Innovation zu bremsen.
+
+Die Antwort liegt in einer stärkeren Plattform-Orientierung.
+
+Je einfacher Bauen wird, desto wichtiger werden gemeinsame Standards, Golden Paths, Templates und wiederverwendbare Bausteine. Der einfachste Weg sollte gleichzeitig der Weg sein, der sich gut in die Gesamtlandschaft einfügt.
+
+Wenn Entwicklungskosten sinken, steigt der Wert guter Architektur.
+
+## Nicht jede AI ist ein Gewinn
+
+Ein weiterer Punkt geht in der aktuellen Begeisterung oft unter.
+
+Jedes zusätzliche AI-System bringt Verantwortung mit sich.
+
+Es muss betrieben werden. Es muss abgesichert werden. Es muss überwacht werden. Es muss erklärt werden können. In vielen Branchen muss es irgendwann auch regulatorisch bewertet und dokumentiert werden.
+
+Wenn ein AI-System einen klaren Mehrwert liefert, ist dieser Aufwand oft gerechtfertigt.
+
+Wenn es lediglich eingebaut wurde, weil AI gerade auf der Roadmap stehen sollte, sieht die Rechnung anders aus.
+
+Dann erzeugt man zusätzliche Komplexität, ohne ein entsprechendes Problem zu lösen.
+
+Und Komplexität hat die unangenehme Eigenschaft, dass sie selten sofort sichtbar wird. Die Rechnung kommt meist später.
+
+## Die Fragen, die ich häufiger hören würde
+
+Bevor gebaut wird, helfen aus meiner Sicht ein paar überraschend einfache Fragen:
 
 <Callout type="info" title="Vier Fragen vor jedem Build">
-- Welches Problem lösen wir wirklich?
-- Was kostet uns die heutige Lösung?
-- Wie sieht gut aus? Woran würden wir Erfolg erkennen?
-- Und erst dann: Ist AI dafür das richtige Werkzeug, oder tut es eine Regel, ein Skript, ein besserer Prozess genauso gut?
+- Welches Problem versuchen wir eigentlich zu lösen?
+- Was kostet uns die aktuelle Situation heute?
+- Woran würden wir erkennen, dass die neue Lösung erfolgreich ist?
+- Und erst danach: Brauchen wir dafür wirklich AI?
 </Callout>
 
-Sehr oft gewinnt die einfache Lösung. Das ist kein Rückschritt. Das ist Ingenieursarbeit.
+Manchmal lautet die Antwort ja.
 
-## Wo AI wirklich liefert
+Manchmal reicht ein Skript.
 
-Es gibt genug Fälle, in denen AI die richtige Wahl ist. Sonst würde ich sie nicht täglich einsetzen.
+Manchmal eine Regel.
 
-Schnelle HTML-Dashboards und Berichte, bei denen es auf die Struktur ankommt, nicht auf Pixel. Grobe Recherchen und Formatierungen, die sonst eine Stunde fressen und kein Nachdenken verdienen. Und vor allem: Technologie dazulernen. AI als Sparring-Partner, der mir in einer Stunde erklärt, wie ein Framework tickt, wofür ich sonst einen Tag Dokumentation lesen würde. Da spart es echte Zeit, und es macht nichts kaputt.
+Manchmal ein besser definierter Prozess.
 
-Der Unterschied ist nicht, ob AI im Spiel ist. Der Unterschied ist, ob am Anfang ein Problem stand oder ein Werkzeug, das sich eines gesucht hat.
+Und manchmal stellt sich heraus, dass das eigentliche Problem an einer ganz anderen Stelle liegt.
 
-## Start with why
+Das ist kein Rückschritt. Das ist solide Ingenieursarbeit.
 
-Beim Warum anzufangen ist nicht innovationsfeindlich. Es ist das Gegenteil. Wer beim Warum anfängt, gibt sein Budget für das aus, was sich rechnet, und nicht für AI auf jeder Folie.
+## Wo AI für mich tatsächlich einen Unterschied macht
 
-Erst das Problem verstehen. Dann das Werkzeug wählen. Dann bauen.
+Trotz aller Kritik nutze ich AI jeden Tag.
+
+Für schnelle HTML-Dashboards und Reports, bei denen Funktion wichtiger ist als Perfektion.
+
+Für Recherchen und Formatierungsaufgaben, die zwar Zeit kosten, aber wenig kreativen Mehrwert erzeugen.
+
+Vor allem aber als Lernwerkzeug.
+
+Wenn ich mich in ein neues Framework, eine Bibliothek oder ein technisches Konzept einarbeiten muss, ist AI oft ein hervorragender Sparringspartner. Sie ersetzt keine Dokumentation und kein eigenes Denken. Aber sie verkürzt den Weg zu einem brauchbaren Verständnis erheblich.
+
+Genau dort spielt sie ihre Stärken aus: Sie beschleunigt Arbeit, die ohnehin erledigt werden muss.
+
+## Am Ende ist die Frage erstaunlich einfach
+
+Für mich geht es nicht darum, ob AI eingesetzt wird oder nicht.
+
+Die eigentliche Frage lautet:
+
+Lösen wir ein Problem und wählen danach das passende Werkzeug? Oder haben wir uns bereits auf das Werkzeug festgelegt und suchen jetzt nach einem Problem dazu?
+
+Das ist kein Plädoyer gegen AI.
+
+Es ist ein Plädoyer dafür, wieder etwas mehr Ingenieur zu sein.
+
+Erst verstehen.
+
+Dann entscheiden.
+
+Dann bauen.
