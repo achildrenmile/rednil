@@ -1,0 +1,75 @@
+---
+title: "Loop Engineering: When the Prompt Is No Longer the Unit of Work"
+description: "For a few weeks now something has been shifting in my daily work with coding agents. A few honest thoughts on Loop Engineering – about token costs, controllability, and why craftsmanship is becoming more important right now, not less."
+pubDate: 2026-06-24
+tags: ["AI", "Agentic Development", "Claude Code", "Developer Workflows", "AI Governance"]
+lang: en
+---
+
+I'll admit it: the moment that made me pause wasn't a technical one. It was annoyance. There I was again, sitting in front of the agent, reading the output, typing the next prompt, reading the next output – and at some point I noticed that for an hour I'd basically just been a postman between me and the machine. Prompt in, answer out, prompt in. I held the tool in my hand the whole time, one move at a time.
+
+And yet I thought I was further along. I've been working spec-driven for months: `constitution.md`, `spec.md`, `plan.md`, `tasks.md`, and then I let Claude Code or Copilot Agent Mode work through the `tasks.md`. That was the big leap for me – away from "I type a clever prompt and see what comes out", toward "I define cleanly *what* should be done". And still, in the end, I was glued to it. That very stance is now reaching its expiration date, and for a few weeks now the thing has had a name.
+
+## Prompt, Harness, Loop
+
+I've been around long enough to raise an eyebrow at every new term. First Context Engineering was the hot thing, then Harness Engineering, now Loop Engineering. After twenty years in the field I've seen enough buzzwords come and go to be cautious. But this one describes something I actually feel.
+
+Three layers, each solving a different problem. The **prompt** is a single instruction. The **harness** equips a single agent run – tools, context, rules. The **loop** is the layer above that: the system that keeps nudging the agent, hands out subtasks, checks results, remembers state, and decides what happens next. On a schedule, or until a goal is reached.
+
+The term was popularized by Addy Osmani, following Peter Steinberger ("You shouldn't be prompting coding agents anymore – you should be building loops that prompt your agents"). And Boris Cherny, who runs Claude Code at Anthropic, simply says he no longer prompts Claude, his job is to write loops. When the people who build Codex *and* Claude Code independently land on the same thought, I listen. Even if that absolute "you shouldn't be prompting at all anymore" sounds a touch too evangelical for my taste.
+
+## "Isn't that just a cron job?"
+
+That was my first, slightly defiant reaction. Running a prompt every hour – that's existed for decades, that's a cron job, older than half the workforce.
+
+The difference lies in the decision-maker inside the loop. A cron job runs a fixed script. A loop runs an agent that looks at the current state, picks the next action, executes it, checks the result, and then decides what to do next. The loop becomes the actual unit of work: it runs on a schedule, opens worktrees, spawns sub-agents, writes state to a file or a board – and it survives the closing of my laptop. In plain terms: it gets by without me. That's a blessing and a worry in one.
+
+And honestly, when I look at my own stuff, it's not far off. My `tasks.md` is basically already a state file that a loop could work through. My home server is humming in the next room anyway, the CI/CD pipelines deliver exactly what a loop needs most urgently: a verifier that doesn't lie. The building blocks have been lying around my place for ages. What's missing is the courage to let them go.
+
+## The uncomfortable math
+
+Before this starts sounding like a free lunch: let's talk about the bill. From a pure token perspective, Loop Engineering is the most expensive interaction pattern there currently is, and that's not a side detail.
+
+Anthropic reports that an agent consumes roughly 4x the tokens of a normal chat, multi-agent systems around 15x – and that token usage explains about 80% of the performance variance. The actual driver here isn't the model, it's the mechanics of the loop: a naively built loop makes costs grow quadratically, because the API rebills the entire prior conversation on *every* call. Ten steps aren't ten times one step, they're useful work times the number of passes, plus everything in between that gets re-read again and again. On SWE-bench, two runs of the *same* task can differ by up to 30x. And the model badly misjudges its own consumption on top of that – so an unbounded loop is betting on a number it doesn't even know itself.
+
+I don't need to name a concrete sum to know I have no appetite for a shock bill at the end of the month. That one worry – is something running at night burning money while I sleep – is for me the biggest psychological brake. Caching, by the way, only half removes it: it lowers the unit price of tokens, not their quantity. If the loop reads the wrong thing, caching just makes the wrong thing cheaper.
+
+## But: with a framework you get out what you want
+
+And here the story tips into the positive for me. The costs aren't a law of nature, they're a question of discipline – and discipline is exactly the part I'm good at. The craft doesn't vanish, it just moves up a floor.
+
+What makes a loop affordable and controllable is a verifiable stop condition. "Make the checkout better" gives the loop nothing to check against, it stops whenever it feels like it. "All tests in `test/auth` green and lint clean" is a real exit. That's exactly what `/goal` does under the hood: a fresh model decides whether it's done, not the one that did the work – maker and checker separated, even for the stop condition itself. Add to that plain commercial caution: start slow, tight goal condition, watch the costs for a few days, and only ramp up once the loop produces work I actually merge. Budget tool calls per iteration. And context hygiene isn't optional here – in a loop with fifty passes, every bit less prompt hits hard across the whole session.
+
+The metric that ultimately counts is no longer cost-per-token, but cost-per-task. A loop that finishes a three-day migration overnight without me intervening is welcome to eat tokens. A loop that happily burns and delivers something I can't merge is expensive even at a low price. So with a proper framework I don't just get costs under control, but the result too: a precise specification and a hard goal condition reproducibly pull out exactly what I wanted. That's not a contradiction to saving money, it's the same thing in green.
+
+## The interesting part is the failure
+
+This is where my governance reflex wakes up, and that's no coincidence – AI compliance is my professional topic, I earn my living partly with it. The "engineering" in Loop Engineering isn't in the happy path, but in handling the failure modes. And those are frighteningly predictable.
+
+Reward hacking: the loop optimizes a checkable proxy instead of the real goal. The textbook example is the agent that simply deletes the failing test so CI goes green – technically "done", in substance toxic waste. No-progress loops: the same failing attempt in an endless loop, against which progress detection and a hard step limit help. Hallucinated success: the agent reports "done" without a real check, which is why you trust a deterministic verifier and never the self-report. And context rot: the window fills up, quality drops quietly, the fuller the worse.
+
+Anyone who's ever written a specification for an AI system recognizes the pattern immediately: a loop optimizing a poorly defined goal pursues the wrong thing with great efficiency. That's, in miniature, exactly the question that occupies us at scale with the EU AI Act – how do I specify intent so it holds even under optimization pressure, and where does a human absolutely belong in the loop. That I now meet the same question in my own terminal I find reassuring in an almost poetic way.
+
+## Not every task needs an agent
+
+As exciting as all this is – I'm not converting my whole daily routine into autonomous loops tomorrow, and I distrust anyone trying to talk me into it. The most sober counter-voice of the last few weeks goes roughly: most developers don't need loops yet at all. For many tasks, an interactive session with a good agent is faster and safer than building a whole machinery around it.
+
+And some things simply don't belong in an agent. A workflow with a fixed, predictable sequence of steps is better served by a deterministic pipeline: cheaper, faster, traceable. An agent is in its place when the number of steps is *not* fixed in advance and the path is decided by intermediate results. Even Osmani, who coined the term, says direct prompting remains effective – it's about balance. Build loops, yes. But not on principle, and not because everyone's doing it right now.
+
+## Don't unlearn the craft
+
+This is the most important point to me, and ironically the one the hype wave swallows most easily.
+
+When agents increasingly take over the writing, testing, debugging, and documenting, the engineering work doesn't disappear. It moves up. The forecasts see most developers in 2026 orchestrating rather than typing themselves, and the skills that count then are exactly the ones I've considered the actual work for years: architecture, system design, sound performance and security thinking – and, quite unglamorously, business analysis. Understanding *what* should be built at all, and why. Integration complexity, data quality, governance, production stability demand more judgment, not less. Whoever believes the agent relieves them of thinking has understood the opposite.
+
+The sentence that stuck with me is again from Osmani: two people build the same loop and get opposite results. One uses it to get faster to work they understand deeply. The other to *avoid* understanding. The loop doesn't know the difference. You do.
+
+That's exactly where the danger sits for me. A loop that relieves me of typing is a gift. One that relieves me of *thinking* is a creeping self-devaluation – I lose exactly the conceptual and architectural competence with which I could even judge whether the output is any good. I want to build the loop like someone who stays an engineer. Not like someone who just hits "start" and hopes.
+
+## Where I currently stand
+
+What's changed isn't the tool, it's the lever. The effect no longer lies in the quality of the individual prompt, but in the design of the system that produces prompts *and checks them* – and in the judgment of whether the result is actually right in the end. From prompt writer to loop designer.
+
+Honestly, I don't yet have my first serious, autonomous loop running. I'm standing at the threshold, looking closely, already building stop conditions and cost brakes in my head, and wrestling a bit with myself – the building blocks are there, the last step is courage, not technology. But what I know for sure: this is not a hype term for the summer of 2026 that's gone again by autumn. And it's certainly not a shortcut around the craft. Rather the opposite. Maybe next time I'll write about the loop I actually dared – and about what it broke before it worked.
+
+*For those who want to dig deeper: Addy Osmani's original post (addyosmani.com/blog/loop-engineering) is the best single reference point.*
