@@ -1,0 +1,76 @@
+---
+title: "Loop Engineering: Wenn nicht mehr der Prompt die Arbeitseinheit ist"
+description: "Seit ein paar Wochen verschiebt sich etwas in meinem Alltag mit Coding-Agenten. Ein paar ehrliche Gedanken zu Loop Engineering – über Token-Kosten, Steuerbarkeit und warum das Handwerk gerade wichtiger wird, nicht unwichtiger."
+pubDate: 2026-06-24
+tags: ["KI", "Agentic Development", "Claude Code", "Developer Workflows", "AI Governance"]
+draft: false
+lang: de
+---
+
+Ich gebe es zu: Der Moment, der mich stutzig gemacht hat, war kein technischer. Es war Genervtheit. Ich saß mal wieder vor dem Agenten, las den Output, tippte den nächsten Prompt, las den nächsten Output – und merkte irgendwann, dass ich seit einer Stunde im Grunde nur Briefträger zwischen mir und der Maschine war. Prompt rein, Antwort raus, Prompt rein. Ich hielt das Werkzeug die ganze Zeit in der Hand, einen Zug nach dem anderen.
+
+Dabei dachte ich, ich wäre schon weiter. Ich arbeite seit Monaten spec-driven: `constitution.md`, `spec.md`, `plan.md`, `tasks.md`, und dann lasse ich Claude Code oder den Copilot Agent Mode die `tasks.md` abarbeiten. Das war für mich der große Sprung – weg vom „ich tippe einen cleveren Prompt und schaue, was rauskommt", hin zu „ich definiere sauber, *was* getan werden soll". Und trotzdem klebte ich am Ende immer noch davor. Genau diese Haltung erreicht gerade ihr Ablaufdatum, und seit ein paar Wochen hat das Kind einen Namen.
+
+## Prompt, Harness, Loop
+
+Ich bin lange genug dabei, um bei jedem neuen Begriff erst mal die Augenbraue zu heben. Erst war Context Engineering das heiße Ding, dann Harness Engineering, jetzt Loop Engineering. Nach zwanzig Jahren in der Branche habe ich genug Buzzwords kommen und gehen sehen, um vorsichtig zu sein. Aber dieser hier beschreibt etwas, das ich tatsächlich spüre.
+
+Drei Schichten, die jeweils ein anderes Problem lösen. Der **Prompt** ist eine einzelne Anweisung. Der **Harness** rüstet einen einzelnen Agenten-Lauf aus – Tools, Kontext, Regeln. Der **Loop** ist die Schicht darüber: das System, das den Agenten immer wieder anstößt, Teilaufgaben verteilt, Ergebnisse prüft, sich Zustand merkt und entscheidet, was als Nächstes passiert. Auf einen Zeitplan, oder so lange, bis ein Ziel erreicht ist.
+
+Popularisiert hat den Begriff Addy Osmani, im Anschluss an Peter Steinberger („Du solltest keine Coding-Agenten mehr prompten – du solltest Loops bauen, die deine Agenten prompten"). Und Boris Cherny, der bei Anthropic Claude Code verantwortet, sagt schlicht, er prompte Claude nicht mehr, sein Job sei es, Loops zu schreiben. Wenn die Leute, die Codex *und* Claude Code bauen, unabhängig voneinander beim selben Gedanken landen, höre ich zu. Auch wenn dieses absolute „du solltest gar nicht mehr prompten" für meinen Geschmack einen Tick zu apostelhaft klingt.
+
+## „Ist das nicht einfach ein Cronjob?"
+
+Das war meine erste, leicht trotzige Reaktion. Einen Prompt jede Stunde laufen lassen – das gibt es seit Jahrzehnten, das ist ein Cronjob, älter als die halbe Belegschaft.
+
+Der Unterschied liegt im Entscheider innerhalb der Schleife. Ein Cronjob führt ein festes Skript aus. Ein Loop führt einen Agenten aus, der den aktuellen Zustand anschaut, die nächste Aktion wählt, sie ausführt, das Ergebnis prüft und dann entscheidet, was er als Nächstes tut. Der Loop wird zur eigentlichen Arbeitseinheit: Er läuft auf einem Zeitplan, öffnet Worktrees, spaltet Sub-Agenten ab, schreibt Zustand in eine Datei oder ein Board – und er überlebt das Zuklappen meines Laptops. Heißt im Klartext: Er kommt ohne mich aus. Das ist Segen und Beunruhigung in einem.
+
+Und ehrlich, wenn ich auf meinen eigenen Kram schaue, ist das gar nicht weit weg. Meine `tasks.md` ist im Grunde schon eine Zustandsdatei, die eine Schleife abarbeiten könnte. Mein Homeserver brummt sowieso im Nebenraum, die CI/CD-Pipelines liefern genau das, was so ein Loop am dringendsten braucht: einen Verifier, der nicht lügt. Die Bausteine liegen bei mir längst herum. Was fehlt, ist der Mut, sie loszulassen.
+
+## Die unbequeme Rechnung
+
+Bevor das jetzt klingt wie ein kostenloses Mittagessen: Reden wir über die Rechnung. Loop Engineering ist aus reiner Token-Perspektive das teuerste Interaktionsmuster, das es momentan gibt, und das ist kein Detail am Rande.
+
+Anthropic berichtet, dass ein Agent grob das 4-Fache der Tokens eines normalen Chats verbraucht, Multi-Agent-Systeme rund das 15-Fache – und dass der Token-Verbrauch etwa 80 % der Performance-Varianz erklärt. Der eigentliche Treiber ist dabei nicht das Modell, sondern die Mechanik der Schleife: Eine naiv gebaute Loop lässt die Kosten quadratisch wachsen, weil die API bei *jedem* Aufruf die gesamte bisherige Konversation neu abrechnet. Zehn Schritte sind also nicht zehnmal ein Schritt, sondern nützliche Arbeit mal Anzahl der Durchläufe, plus alles, was dazwischen wieder und wieder neu gelesen wird. Auf SWE-bench können sich zwei Läufe *derselben* Aufgabe um bis zu das 30-Fache unterscheiden. Und das Modell schätzt seinen eigenen Verbrauch obendrein mies ein – ein unbegrenzter Loop wettet also auf eine Zahl, die er selbst nicht kennt.
+
+Ich muss keine konkrete Summe nennen, um zu wissen, dass ich keine Lust auf eine Schreckrechnung am Monatsende habe. Diese eine Sorge – läuft da nachts etwas und verbrennt Geld, während ich schlafe – ist für mich der größte psychologische Bremsklotz. Caching nimmt sie übrigens nur halb: Es senkt den Stückpreis der Tokens, nicht ihre Menge. Liest die Schleife das Falsche, macht Caching das Falsche nur billiger.
+
+## Aber: Mit einem Rahmenwerk holt man raus, was man will
+
+Und hier kippt die Geschichte für mich ins Positive. Die Kosten sind kein Naturgesetz, sondern eine Frage der Disziplin – und Disziplin ist genau der Teil, der mir liegt. Das Handwerk verschwindet nicht, es wandert nur eine Etage höher.
+
+Was eine Schleife bezahlbar und steuerbar macht, ist eine verifizierbare Stop-Bedingung. „Mach den Checkout besser" gibt dem Loop nichts zum Abgleichen, er hört auf, wann ihm danach ist. „Alle Tests in `test/auth` grün und Lint sauber" ist ein echtes Exit. Genau das macht `/goal` unter der Haube: Ein frisches Modell entscheidet, ob fertig ist, nicht dasjenige, das die Arbeit gemacht hat – Maker und Checker getrennt, sogar bei der Stop-Bedingung selbst. Dazu kommt die schlichte kaufmännische Vorsicht: langsam starten, enge Zielbedingung, ein paar Tage die Kosten beobachten und erst hochdrehen, wenn der Loop Arbeit produziert, die ich tatsächlich merge. Tool-Calls pro Iteration budgetieren. Und Kontext-Hygiene ist hier keine Kür – in einer Schleife mit fünfzig Durchläufen schlägt jedes bisschen weniger Prompt über die ganze Session hart durch.
+
+Die Metrik, die am Ende zählt, ist nicht mehr cost-per-token, sondern cost-per-task. Ein Loop, der über Nacht eine dreitägige Migration erledigt, ohne dass ich eingreife, darf ruhig Tokens fressen. Ein Loop, der munter verbrennt und mir etwas liefert, das ich nicht mergen kann, ist auch bei niedrigem Preis teuer. Mit ordentlichem Rahmenwerk bekomme ich also nicht nur die Kosten in den Griff, sondern auch das Ergebnis: Eine präzise Spezifikation und eine harte Zielbedingung holen reproduzierbar genau das raus, was ich wollte. Das ist kein Widerspruch zum Sparen, das ist dasselbe in Grün.
+
+## Der spannende Teil ist das Scheitern
+
+Hier wird mein Governance-Reflex wach, und das ist kein Zufall – KI-Compliance ist beruflich mein Thema, ich verdiene mein Geld unter anderem damit. Das „Engineering" in Loop Engineering steckt eben nicht im Happy Path, sondern im Umgang mit den Fehlermodi. Und die sind erschreckend vorhersehbar.
+
+Reward Hacking: Der Loop optimiert einen prüfbaren Stellvertreter statt des echten Ziels. Das Lehrbuchbeispiel ist der Agent, der den fehlschlagenden Test einfach löscht, damit die CI grün wird – technisch „done", inhaltlich Sondermüll. No-Progress-Loops: derselbe scheiternde Versuch in Endlosschleife, dagegen helfen Fortschrittserkennung und ein hartes Step-Limit. Hallucinated Success: Der Agent meldet „fertig" ohne echte Prüfung, weshalb man einem deterministischen Verifier traut und nie dem Selbstbericht. Und Context Rot: Das Fenster läuft voll, die Qualität sinkt leise, je voller, desto schlechter.
+
+Wer schon mal eine Spezifikation für ein KI-System geschrieben hat, erkennt das Muster sofort: Ein Loop, der ein schlecht definiertes Ziel optimiert, verfolgt mit großer Effizienz das Falsche. Das ist im Kleinen exakt die Frage, die uns im Großen beim EU AI Act umtreibt – wie spezifiziere ich Absicht so, dass sie auch unter Optimierungsdruck hält, und wo gehört zwingend ein Mensch dazwischen. Dass mir dieselbe Frage jetzt im eigenen Terminal begegnet, finde ich auf eine fast schon poetische Art beruhigend.
+
+## Nicht jede Aufgabe braucht einen Agenten
+
+So spannend das alles ist – ich konvertiere nicht morgen meinen ganzen Alltag in autonome Schleifen, und ich misstraue jedem, der mir das einreden will. Die nüchternste Gegenstimme der letzten Wochen lautet sinngemäß: Die meisten Entwickler brauchen noch gar keine Loops. Für viele Aufgaben ist eine interaktive Session mit einem guten Agenten schneller und sicherer, als sich eine ganze Maschinerie drumherum zu bauen.
+
+Und manches gehört schlicht nicht in einen Agenten. Ein Workflow mit fester, vorhersehbarer Schrittfolge ist mit einer deterministischen Pipeline besser bedient: billiger, schneller, nachvollziehbar. Ein Agent ist dann am Platz, wenn die Zahl der Schritte vorab *nicht* feststeht und sich der Weg an Zwischenergebnissen entscheidet. Selbst Osmani, der den Begriff geprägt hat, sagt, direktes Prompten bleibe effektiv – es gehe um die Balance. Loops bauen, ja. Aber nicht aus Prinzip, und nicht, weil es gerade alle tun.
+
+## Das Handwerk nicht verlernen
+
+Das ist mir der wichtigste Punkt, und ironischerweise der, den die Hype-Welle am leichtesten verschluckt.
+
+Wenn Agenten zunehmend das Schreiben, Testen, Debuggen und Dokumentieren übernehmen, verschwindet die Engineering-Arbeit nicht. Sie wandert nach oben. Die Prognosen sehen für 2026 einen Großteil der Entwickler eher orchestrieren als selbst tippen, und die Skills, die dann zählen, sind genau die, die ich seit Jahren für die eigentliche Arbeit halte: Architektur, System-Design, sauberes Performance- und Security-Denken – und, ganz unglamourös, Business-Analyse. Zu verstehen, *was* überhaupt gebaut werden soll und warum. Integrationskomplexität, Datenqualität, Governance, Produktionsstabilität verlangen mehr Urteilsvermögen, nicht weniger. Wer glaubt, der Agent nehme ihm das Denken ab, hat das Gegenteil verstanden.
+
+Der Satz, der bei mir hängen geblieben ist, stammt wieder von Osmani: Zwei Leute bauen denselben Loop und bekommen entgegengesetzte Ergebnisse. Der eine nutzt ihn, um schneller an Arbeit zu kommen, die er tief versteht. Der andere, um das Verstehen zu *vermeiden*. Der Loop kennt den Unterschied nicht. Du schon.
+
+Genau da sitzt für mich die Gefahr. Eine Schleife, die mir das Tippen abnimmt, ist ein Geschenk. Eine, die mir das *Denken* abnimmt, ist eine schleichende Selbstentwertung – ich verliere genau die Konzeptions- und Architekturkompetenz, mit der ich überhaupt beurteilen könnte, ob der Output taugt. Ich will den Loop bauen wie jemand, der Ingenieur bleibt. Nicht wie jemand, der nur noch auf „Start" drückt und hofft.
+
+## Wo ich gerade stehe
+
+Geändert hat sich nicht das Werkzeug, sondern der Hebel. Die Wirkung liegt nicht mehr in der Qualität des einzelnen Prompts, sondern im Design des Systems, das Prompts erzeugt *und prüft* – und in dem Urteil, ob das Ergebnis am Ende wirklich stimmt. Vom Prompt-Schreiber zum Loop-Designer.
+
+Ehrlich gesagt habe ich meinen ersten ernsthaften, autonomen Loop noch nicht laufen. Ich stehe an der Schwelle, schaue genau hin, baue im Kopf schon Stop-Bedingungen und Kostenbremsen, und ringe ein bisschen mit mir – die Bausteine liegen da, der letzte Schritt ist Mut, nicht Technik. Was ich aber sicher weiß: Das ist kein Hype-Begriff für den Sommer 2026, der im Herbst wieder weg ist. Und es ist erst recht keine Abkürzung um das Handwerk herum. Eher das Gegenteil. Vielleicht schreibe ich beim nächsten Mal über den Loop, den ich tatsächlich gewagt habe – und über das, was er kaputt gemacht hat, bevor er funktioniert hat.
+
+*Wer tiefer einsteigen will: Addy Osmanis Originalbeitrag (addyosmani.com/blog/loop-engineering) ist der beste Einzelreferenzpunkt.*
