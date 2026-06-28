@@ -63,7 +63,7 @@ Before I ask how autonomously a loop may run, I ask whether it pays off at all. 
 
 On top of that, the hard cost side. Self-prompting and retries burn tokens, millions fast, and that per run. The brakes are unglamorous and mandatory: a maximum iteration count and a daily budget in tokens or euros. Without a checkable stop target, both run into the void; the furnace just heats up more expensively.
 
-Inside a project, too, there's no smooth autonomy, just a clear edge. Where the verifier is cheap, deterministic, and complete, like the contract test for a new plugin, a loop may run overnight. Where it checks a security or fairness property, it runs too, but I read the verdict afterward. And before anything goes to production, a hand stays on the lever: mine. Every loop's reach ends where "done" can no longer be proven by machine.
+Inside a project, too, there's no smooth autonomy, just a clear edge. Where the verifier is cheap, deterministic, and complete, like the contract test for a new plugin, a loop may run overnight. Where it checks a security or fairness property, it runs too, but I read the verdict afterward. And before anything ships to production, I take a last look myself. Every loop's reach ends where "done" can no longer be proven by machine.
 
 That's also my sober answer to whether such loops replace teams. The value never migrated into the loop. It stays in the three things above it: knowing what "correct" means, well enough to write it as a test; noticing when an agent stamps itself green even though it checked the wrong thing; and deciding where a human absolutely has to step in. This judgment work has grown, not shrunk.
 
