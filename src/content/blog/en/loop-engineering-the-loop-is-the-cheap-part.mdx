@@ -1,0 +1,80 @@
+---
+title: "Loop Engineering: The Loop Is the Cheap Part"
+description: "Half the industry is saying: stop writing prompts, write loops. After two weeks of practice on my own code, it turns out the loop is the cheap part – the real work is the verifiers. And why coding is the easy case."
+pubDate: 2026-06-28
+tags: ["AI", "Agentic Development", "Claude Code", "Developer Workflows", "AI Governance"]
+lang: en
+---
+
+*Also available in German: [Loop Engineering: Der Loop ist der billige Teil](/blog/loop-engineering-der-loop-ist-der-billige-teil/).*
+
+> Part 2 of [Loop Engineering: When the Prompt Is No Longer the Unit of Work](/en/blog/loop-engineering/).
+> That's where the conceptual scaffolding lives. Here it gets concrete – on my own repo, with green and red tests.
+
+The industry is currently saying the same thing in unison: stop writing prompts, write loops. Part 1 sorted out the conceptual scaffolding and ended on an open construction site – the first serious loop hadn't been dared yet. By now it's standing. And the most important lesson is this: the loop itself was never the hard part.
+
+## What got built
+
+The test subject was [FunkParcours](https://github.com/achildrenmile/funkparcours), a radio-drill tool I vibe-coded in one sitting. Architecture and spec: solid, the pure game core even tested. What was missing was the verification surface. The server kept central promises – the receiving team must never see the template, the timer runs server-side – and not a single test secured them. No CI, no real lint, no contract that forces a new game-type plugin to make itself checkable.
+
+These gaps turned into a backlog: one issue per gap, with acceptance criteria, architecture notes, and a verification definition. The whole bundle then went to Claude Code in a single run – no longer prompt by prompt. Out came a CI gate with a Postgres service that blocks on red, an `AGENTS.md` holding the invariants, ESLint, server integration tests, and a registry-driven contract test. Result: 141 green tests in the core, 80 of them the contract alone.
+
+For an honest framing: this was not an autonomous loop running by itself overnight, but an agentic run against a clearly specified plan – with a human as the verifier. And that's exactly the point.
+
+## The loop is cheap, the verifier is the work
+
+For months the respect was aimed at the wrong place. The missing courage seemed to be the courage to give up control – to let the `while` run without sitting beside it. But the `while` is the cheapest part of the story: a dozen lines.
+
+The real work lies in writing the verifiers – in defining what "correct" and "done" mean in a project. That's the one task no agent takes over, because it's the very question the agent gets checked against. A maker doesn't grade itself; asked whether it's done, the answer is always yes. The verdict has to come from outside, and defining that verdict is the engineering work.
+
+This ties directly back to the cost math from Part 1. What makes a loop affordable and what earns it trust are the same thing: a hard, checkable stop condition. No verifier, no affordable loop – and none worth trusting. The expensive work isn't in letting go, it's in the verifier that gets built beforehand.
+
+## Coding is the easy case
+
+This insight carries an uncomfortable overtone that Louis Bouchard (Towards AI) nails in his explainer "Loop Engineering Explained". A deterministic goal – all tests green, CI clean – is checkable, so the loop halts. A subjective goal – "make it good" – has no target. The loop rewrites endlessly, version 55 and no end in sight, because nothing tells it when to stop. Without a check you don't get a loop, you get, in Bouchard's image, a very confident token furnace.
+
+From that follows the honest framing of the FunkParcours example: it runs autonomously because its goals are deterministic. "The perfect answer scores 1.0" and "the team never sees the template" can be proven by machine. That's exactly why coding is the easy case. The moment the goal becomes "better product strategy" or "nicer design", the target is gone – and no `while` in the world replaces the human who decides what "good" means.
+
+## The verifier that changed the architecture
+
+This shows up most clearly in the contract test. A single test iterates over every registered game type and checks five laws: the same seed produces the same template, the perfect answer yields accuracy 1.0, a wrong answer yields less, the value stays between 0 and 1, and the generator stays free of frontend and I/O.
+
+The law "perfect answer yields 1.0" has a consequence that wasn't foreseeable while writing it: to check it, every type has to be able to state what its perfect answer looks like. So a `samplePerfectAnswer` method migrated onto the shared interface – and thereby into all thirteen existing types. A new game type no longer compiles unless it can say how to solve it.
+
+That's the core of Loop Engineering, far more than the `while`: the verifier dictates the design. Not "added a few tests", but the system forced to make itself checkable – and that changes the interface. Every future plugin inherits this contract and is therefore safe by construction. That's the work that moves up a floor.
+
+## What broke
+
+The 141 unit tests were green – the end-to-end wasn't. In the e2e run, which plays through the whole stack, the team got stuck immediately. Not on logic, but on a station's help dialog that lies over the playing field on first open and intercepts the clicks. No unit test sees that: every function on its own is correct. It only breaks where real building blocks meet in the browser, in the order a human clicks them.
+
+The lesson in one sentence: different verifiers catch different truths. The contract test secures pure logic, cheap and fast. The e2e test secures integration, expensive and slow. Build only the cheap one and you'll mistake a green project for a finished one that stumbles in the browser.
+
+## The invariant never to trust blindly
+
+One check deserves more distrust than all the others. It's written verbatim in the `AGENTS.md` the run produced: *"A green route is not enough – the test must assert the property, never just status 200."*
+
+It's about the platform's central promise: the receiving team never gets the template through the software – the radio is the channel, not the app. A lazy test checks whether the route responds. The real test reconstructs the true template server-side and then asserts that it appears in the response to the team in no form whatsoever: not as a field, not in the heatmap feedback after submitting, not in the snapshot after a reconnect. This verifier isn't friendly, it's adversarial – it assumes the answer could leak and actively goes looking for it.
+
+This is where the governance reflex from Part 1 sits. For a security property, neither an agent's self-report nor a green checkmark that merely proves reachability deserves trust. Such tests should be read, not just run – when in doubt by a second pair of eyes that didn't build the solution themselves.
+
+## When a loop pays off – and when it doesn't
+
+Before the question of how autonomously a loop may run comes the question of whether it pays off at all. Bouchard's rule of thumb: start simple, add autonomy only when it earns its keep. A one-off task just gets prompted, no scaffolding needed. If the work repeats and has a clear pass/fail, the loop that takes over exactly this dull, recurring work pays off. If the goal is vague, it doesn't belong in a `while` loop but a step back: first sharpen a better goal with humans.
+
+On top of that, the hard cost side. Self-prompting and retries burn tokens – millions fast, and that per run. The brakes are unglamorous and mandatory: a maximum iteration count and a daily budget in tokens or euros. Without a checkable stop target in front of them, both run into the void; the furnace just heats up more expensively.
+
+Inside a project, too, you don't get smooth autonomy but a clear edge. Where the verifier is cheap, deterministic, and complete – the contract test for a new plugin – a loop may run overnight. Where it checks a security or fairness property, it runs, but the verdict should be read afterward. For the rollout to production, a human hand stays on the gate. Every loop's reach ends where "done" can be proven by machine.
+
+That's also the sober answer to whether such loops replace teams. The value never migrated into the loop; it stays in the three things above it: knowing what "correct" means, well enough to write it as a test; noticing when an agent stamps itself green even though it checked the wrong thing; and deciding where a human absolutely has to step in. This judgment work has grown, not shrunk.
+
+## Where the path leads
+
+The threshold has been crossed – just at a different spot than expected. The courage needed wasn't the courage to give up control, but the discipline to build the inconspicuous half first: the checks that define what good is. Putting the `while` in front of it afterward is an afternoon.
+
+The next step is clear and this time without the queasy feeling: have a real autonomous loop build a new game-type plugin, with the contract test as judge, overnight, with a cost brake. Because the verifier exists, that's no longer a leap into the dark but a controlled run against a gate that doesn't lie. That's what Part 3 is about.
+
+One last note on transparency about AI use on this blog: the code run was done by Claude Code, the prose is written with AI assistance. What was not outsourced – and not outsourceable – was the decision about what should be checked in the first place. That was the work. The rest is typing.
+
+---
+
+*Repo to follow along: [github.com/achildrenmile/funkparcours](https://github.com/achildrenmile/funkparcours). Conceptual basis in [Part 1](/en/blog/loop-engineering/). The image of the deterministic vs. subjective goal comes from Louis Bouchard's "Loop Engineering Explained" (Towards AI, youtube.com/watch?v=NjXIIH9vcv0); Addy Osmani's original post (addyosmani.com/blog/loop-engineering) remains the best single reference point.*

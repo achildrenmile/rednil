@@ -1,0 +1,81 @@
+---
+title: "Loop Engineering: Der Loop ist der billige Teil"
+description: "Die halbe Branche sagt: schreib keine Prompts mehr, schreib Loops. Nach zwei Wochen Praxis am eigenen Code zeigt sich, dass der Loop der billige Teil ist – die eigentliche Arbeit sind die Verifier. Und warum Coding der einfache Fall ist."
+pubDate: 2026-06-28
+tags: ["KI", "Agentic Development", "Claude Code", "Developer Workflows", "AI Governance"]
+draft: false
+lang: de
+---
+
+*Auch auf Englisch verfügbar: [Loop Engineering: The Loop Is the Cheap Part](/en/blog/loop-engineering-the-loop-is-the-cheap-part/).*
+
+> Teil 2 zu [Loop Engineering: Wenn nicht mehr der Prompt die Arbeitseinheit ist](/blog/loop-engineering/).
+> Dort steht das Begriffsgerüst. Hier wird es konkret – am eigenen Repo, mit grünen und roten Tests.
+
+Die Branche sagt gerade unisono dasselbe: Schreib keine Prompts mehr, schreib Loops. Teil 1 hat das Begriffsgerüst sortiert und mit einer offenen Baustelle geendet – der erste ernsthafte Loop war noch nicht gewagt. Inzwischen steht er. Und die wichtigste Erkenntnis lautet: Der Loop selbst war nie der schwierige Teil.
+
+## Was entstanden ist
+
+Testobjekt war [FunkParcours](https://github.com/achildrenmile/funkparcours), ein in einem Rutsch zusammengevibetes Funkübungs-Tool. Architektur und Spec: solide, der reine Spielkern sogar getestet. Was fehlte, war die Prüf-Fläche. Der Server hielt zentrale Versprechen – der Empfangstrupp darf die Vorlage nie sehen, der Timer läuft serverseitig – und kein einziger Test sicherte sie ab. Kein CI, kein echtes Lint, kein Vertrag, der ein neues Spieltyp-Plugin zur Selbstprüfung zwingt.
+
+Diese Lücken wurden zu einem Backlog: pro Lücke ein Issue mit Akzeptanzkriterien, Architekturnotizen und einer Prüf-Definition. Das gesamte Bündel ging dann in einem Durchlauf an Claude Code – nicht mehr Prompt für Prompt. Heraus kamen ein CI-Gate mit Postgres-Service, das bei Rot blockiert, eine `AGENTS.md` mit den Invarianten, ESLint, Server-Integrationstests und ein registry-getriebener Vertragstest. Ergebnis: 141 grüne Tests im Kern, davon 80 allein der Vertrag.
+
+Zur ehrlichen Einordnung: Das war kein autonomer Loop, der nachts allein lief, sondern ein agentischer Durchlauf gegen einen klar spezifizierten Plan – mit einem Menschen als Verifier. Und genau das ist der Punkt.
+
+## Der Loop ist billig, der Verifier ist die Arbeit
+
+Der Respekt galt monatelang der falschen Stelle. Der fehlende Mut schien der Mut zum Kontrollverlust zu sein – das `while` laufen zu lassen, ohne danebenzusitzen. Dabei ist das `while` der billigste Teil der Geschichte: ein Dutzend Zeilen.
+
+Die eigentliche Arbeit liegt im Schreiben der Verifier – im Festlegen, was „korrekt" und „fertig" in einem Projekt heißen. Das ist die eine Aufgabe, die kein Agent übernimmt, weil sie die Frage ist, gegen die der Agent geprüft wird. Ein Maker benotet sich nicht selbst; auf die Frage, ob er fertig sei, folgt ein Ja. Das Urteil muss von außen kommen, und dieses Urteil zu definieren ist die Ingenieursleistung.
+
+Das schließt direkt an die Kostenrechnung aus Teil 1 an. Was eine Schleife bezahlbar macht und was ihr Vertrauen verschafft, ist dieselbe Sache: eine harte, prüfbare Stop-Bedingung. Ohne Verifier kein bezahlbarer Loop – und keiner, dem zu trauen wäre. Die teure Arbeit steckt nicht im Loslassen, sondern im Verifier, der davor entsteht.
+
+## Coding ist der einfache Fall
+
+Diese Erkenntnis hat einen unbequemen Beiklang, den Louis Bouchard (Towards AI) in seinem Erklärvideo „Loop Engineering Explained" auf den Punkt bringt. Ein deterministisches Ziel – alle Tests grün, CI sauber – ist prüfbar, also hält der Loop an. Ein subjektives Ziel – „mach es gut" – hat kein Target. Der Loop schreibt endlos um, Version 55 und kein Ende, weil ihm nichts sagt, wann Schluss ist. Ohne Prüfung entsteht kein Loop, sondern, in Bouchards Bild, ein sehr selbstbewusster Token-Ofen.
+
+Daraus folgt die ehrliche Einordnung des FunkParcours-Beispiels: Es läuft autonom, weil seine Ziele deterministisch sind. „Die perfekte Antwort ergibt 1,0" und „der Trupp sieht die Vorlage nie" lassen sich maschinell beweisen. Coding ist genau deshalb der einfache Fall. Sobald das Ziel „bessere Produktstrategie" oder „schöneres Design" heißt, fehlt das Target – und kein `while` der Welt ersetzt den Menschen, der entscheidet, was „gut" bedeutet.
+
+## Der Verifier, der die Architektur verändert hat
+
+Am deutlichsten zeigt sich das am Vertragstest. Ein einziger Test iteriert alle registrierten Spieltypen und prüft fünf Gesetze: gleicher Seed erzeugt dieselbe Vorlage, die perfekte Antwort ergibt Genauigkeit 1,0, eine falsche Antwort weniger, der Wert bleibt zwischen 0 und 1, und der Generator bleibt frei von Frontend und I/O.
+
+Das Gesetz „perfekte Antwort ergibt 1,0" hat eine Folge, die beim Schreiben nicht absehbar war: Um es zu prüfen, muss jeder Typ angeben können, wie seine perfekte Antwort aussieht. Also wanderte eine Methode `samplePerfectAnswer` auf das gemeinsame Interface – und damit in alle dreizehn bestehenden Typen. Ein neuer Spieltyp kompiliert seitdem nicht mehr, wenn er nicht sagen kann, wie man ihn löst.
+
+Das ist der Kern von Loop Engineering, weit mehr als das `while`: Der Verifier diktiert das Design. Nicht „ein paar Tests ergänzt", sondern das System gezwungen, sich selbst prüfbar zu machen – und das verändert die Schnittstelle. Jedes künftige Plugin erbt diesen Vertrag und ist damit sicher-by-construction. Das ist die Arbeit, die nach oben wandert.
+
+## Was kaputtging
+
+Die 141 Unit-Tests waren grün – das End-to-End nicht. Im e2e-Durchlauf, der den ganzen Stack durchspielt, blieb der Trupp sofort hängen. Nicht an Logik, sondern an einem Hilfe-Dialog der Station, der beim ersten Öffnen über dem Spielfeld liegt und die Klicks abfängt. Kein Unit-Test sieht das: Jede Funktion für sich ist korrekt. Es bricht erst dort, wo echte Bausteine im Browser aufeinandertreffen, in der Reihenfolge, in der ein Mensch klickt.
+
+Die Lektion in einem Satz: Verschiedene Verifier fangen verschiedene Wahrheiten. Der Vertragstest sichert die reine Logik, billig und schnell. Der e2e-Test sichert die Integration, teuer und langsam. Wer nur den billigen baut, hält ein grünes Projekt für fertig, das im Browser stolpert.
+
+## Die Invariante, der nie blind zu trauen ist
+
+Eine Prüfung verdient mehr Misstrauen als alle anderen. Sie steht wörtlich in der `AGENTS.md`, die der Durchlauf geschrieben hat: *„A green route is not enough – the test must assert the property, never just status 200."*
+
+Es geht um das zentrale Versprechen der Plattform: Der Empfangstrupp bekommt die Vorlage nie über die Software – das Funkgerät ist der Kanal, nicht die App. Ein fauler Test prüft, ob die Route antwortet. Der echte Test rekonstruiert serverseitig die wahre Vorlage und behauptet dann, dass sie in der Antwort an den Trupp in keiner Form vorkommt: nicht als Feld, nicht im Heatmap-Feedback nach dem Abgeben, nicht im Snapshot nach einem Reconnect. Dieser Verifier ist nicht freundlich, er ist adversariell – er unterstellt, dass die Antwort durchsickern könnte, und sucht aktiv danach.
+
+Hier sitzt der Governance-Reflex aus Teil 1. Bei einer Sicherheitseigenschaft verdient weder der Selbstbericht eines Agenten Vertrauen noch ein grünes Häkchen, das bloß Erreichbarkeit prüft. Solche Tests gehören gelesen, nicht nur ausgeführt – im Zweifel von einem zweiten Augenpaar, das die Lösung nicht selbst gebaut hat.
+
+## Wann ein Loop sich lohnt – und wann nicht
+
+Vor der Frage, wie autonom eine Schleife laufen darf, steht die Frage, ob sie sich überhaupt lohnt. Bouchards Faustregel: einfach anfangen, Autonomie erst dazunehmen, wenn sie sich rechnet. Eine einmalige Aufgabe wird schlicht geprompted, kein Gerüst nötig. Wiederholt sich die Arbeit und hat ein klares Bestehen/Durchfallen, lohnt der Loop, der genau diese stumpfe, wiederkehrende Arbeit übernimmt. Ist das Ziel vage, gehört es nicht in eine `while`-Schleife, sondern einen Schritt zurück: erst mit Menschen ein besseres Ziel schärfen.
+
+Dazu die harte Kostenseite. Selbst-Prompting und Retries verbrennen Tokens – schnell Millionen, und das pro Lauf. Die Bremsen sind unspektakulär und Pflicht: eine maximale Iterationszahl und ein Tagesbudget in Tokens oder Euro. Ohne prüfbares Stop-Ziel davor laufen beide ins Leere; der Ofen heizt nur teurer.
+
+Auch im Inneren eines Projekts ergibt sich keine glatte Autonomie, sondern eine klare Kante. Wo der Verifier billig, deterministisch und vollständig ist – der Vertragstest für ein neues Plugin – darf eine Schleife über Nacht laufen. Wo er eine Sicherheits- oder Fairness-Eigenschaft prüft, läuft sie, aber das Urteil gehört nachgelesen. Beim Rollout nach Produktion bleibt eine menschliche Hand am Tor. Die Reichweite jeder Schleife endet dort, wo „fertig" sich maschinell beweisen lässt.
+
+Das ist zugleich die nüchterne Antwort auf die Frage, ob solche Loops Teams ersetzen. Der Wert ist nie in die Schleife gewandert; er bleibt in den drei Dingen darüber: zu wissen, was „korrekt" heißt, gut genug, um es als Test zu schreiben; zu merken, wenn ein Agent sich grün stempelt, obwohl er das Falsche geprüft hat; und zu entscheiden, wo ein Mensch zwingend dazwischengehört. Diese Urteilsarbeit ist mehr geworden, nicht weniger.
+
+## Wo der Weg hinführt
+
+Die Schwelle ist überschritten – nur an anderer Stelle als erwartet. Der nötige Mut war nicht der zum Kontrollverlust, sondern die Disziplin, zuerst die unscheinbare Hälfte zu bauen: die Prüfungen, die festlegen, was gut ist. Das `while` davorzusetzen, ist danach ein Nachmittag.
+
+Der nächste Schritt ist klar und diesmal ohne flaues Gefühl: ein neues Spieltyp-Plugin von einer echten autonomen Schleife bauen lassen, mit dem Vertragstest als Richter, über Nacht, mit Kostenbremse. Weil der Verifier existiert, ist das kein Sprung ins Dunkle mehr, sondern ein kontrollierter Lauf gegen ein Tor, das nicht lügt. Davon handelt Teil 3.
+
+Eine letzte Notiz zur Transparenz beim KI-Einsatz auf diesem Blog: Den Code-Durchlauf hat Claude Code gemacht, die Prosa entsteht KI-gestützt. Nicht ausgelagert – und nicht auslagerbar – war die Entscheidung, was überhaupt geprüft gehört. Das war die Arbeit. Der Rest ist Tippen.
+
+---
+
+*Repo zum Mitlesen: [github.com/achildrenmile/funkparcours](https://github.com/achildrenmile/funkparcours). Begriffsgrundlage in [Teil 1](/blog/loop-engineering/). Das Bild vom deterministischen vs. subjektiven Ziel stammt aus Louis Bouchards „Loop Engineering Explained" (Towards AI, youtube.com/watch?v=NjXIIH9vcv0); Addy Osmanis Originalbeitrag (addyosmani.com/blog/loop-engineering) bleibt der beste Einzelreferenzpunkt.*
