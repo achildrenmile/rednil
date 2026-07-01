@@ -79,12 +79,27 @@ export function getAlternateLocalePath(currentPath: string, targetLocale: Locale
     '/ai-transparency': '/ki-transparenz',
     '/projekte': '/projects',
     '/projects': '/projekte',
+    // Blog posts with differing slugs per language (same-slug posts need no entry)
+    '/blog/erst-das-problem-dann-das-werkzeug': '/blog/problem-first-then-tool',
+    '/blog/problem-first-then-tool': '/blog/erst-das-problem-dann-das-werkzeug',
+    '/blog/eu-ai-act-kmu-dach': '/blog/eu-ai-act-sme-dach',
+    '/blog/eu-ai-act-sme-dach': '/blog/eu-ai-act-kmu-dach',
+    '/blog/loop-engineering-der-loop-ist-der-billige-teil': '/blog/loop-engineering-the-loop-is-the-cheap-part',
+    '/blog/loop-engineering-the-loop-is-the-cheap-part': '/blog/loop-engineering-der-loop-ist-der-billige-teil',
+    '/blog/programmieren-vs-entwickeln': '/blog/programming-vs-development',
+    '/blog/programming-vs-development': '/blog/programmieren-vs-entwickeln',
+    '/blog/ki-agent-baut-werkzeug-experiment': '/blog/ai-agent-builds-a-tool-experiment',
+    '/blog/ai-agent-builds-a-tool-experiment': '/blog/ki-agent-baut-werkzeug-experiment',
   };
 
-  if (targetLocale === defaultLocale) {
-    return pathMap[basePath] ?? basePath;
-  }
+  // Built paths carry a trailing slash; pathMap keys do not. Normalize for lookup, then restore.
+  const hadTrailingSlash = basePath.length > 1 && basePath.endsWith('/');
+  const lookupPath = hadTrailingSlash ? basePath.slice(0, -1) : basePath;
+  const mappedPath = pathMap[lookupPath] ?? lookupPath;
+  const restore = (p: string): string => (p === '/' || !hadTrailingSlash ? p : `${p}/`);
 
-  const mappedPath = pathMap[basePath] ?? basePath;
-  return `/${targetLocale}${mappedPath}`;
+  if (targetLocale === defaultLocale) {
+    return restore(mappedPath);
+  }
+  return `/${targetLocale}${restore(mappedPath)}`;
 }
