@@ -1,0 +1,84 @@
+---
+title: "I let an AI agent build a small tool on its own. Here is what it could and could not do."
+description: "I let an autonomous AI agent build a small, genuinely useful tool from start to finish. Three tasks, three runs, and one clear lesson about where the loop carries the work and where a human still has to set the direction."
+pubDate: 2026-07-01
+tags: ["AI", "Agentic Development", "AI Governance", "Developer Workflows"]
+draft: true
+lang: en
+---
+
+*Also available in German: [Ich habe eine KI ein kleines Werkzeug allein bauen lassen. Das ist dabei herausgekommen.](/blog/ki-agent-baut-werkzeug-experiment/).*
+
+![zeroshot rejects the first attempt because the docs still describe placeholders](/blog/ai-agent-tool-experiment/03-validator-reject-stubs.png)
+
+Everyone is talking about letting AI agents work on their own, in a loop, until a goal is met. The promise sounds like full automation. I wanted to know what that really means in practice, so I ran an experiment. I let an autonomous agent build a small, genuinely useful tool from start to finish, and I watched closely where the loop carried the work and where a human still had to set the direction.
+
+**The tool.** It is called dotenv-guard, and it checks a project's .env file, the file that holds configuration and secrets, against a schema you define. It reports what is missing, wrong, or risky before your app breaks in production. Small, but the kind of thing every team needs. It is open source: [github.com/achildrenmile/dotenv-guard](https://github.com/achildrenmile/dotenv-guard).
+
+**The agent.** The thing that built it is zeroshot, an open source system from The Open Engine that runs several AI agents together. One plans, one writes the code, and independent reviewers check the result, looping until the work is verified or rejected: [github.com/the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot). Full credit to the team behind it. What follows is not a review of zeroshot. It is a look at what such a loop can and cannot decide, using zeroshot as a well built example.
+
+I gave the agent three tasks, each written as an issue with clear criteria. Each one taught something different.
+
+## Task one: a clear goal, and a rejection I did not expect
+
+The first task was the core. Read the schema, read the .env, check each value by type. This is the easy case, because "correct" is checkable here. A port is either in range or not. A URL is either valid or not.
+
+![zeroshot rates the task STANDARD](/blog/ai-agent-tool-experiment/01-conductor-standard.png)
+*The agent rates the task itself: STANDARD, a dev tool checking config files.*
+
+That rating is worth noting. Before any work, zeroshot rates the risk of the task. It called this one STANDARD, reasoning that it was a dev tool checking config files, not modifying real login, payment, or secrets logic. That judgment comes back later.
+
+I expected a clean pass. It did not happen. The code reviewer rejected the first attempt.
+
+![The reviewer rejects the first attempt](/blog/ai-agent-tool-experiment/03-validator-reject-stubs.png)
+*The independent reviewer rejects working code because the docs still claimed the functions were empty placeholders.*
+
+The code worked and the tests passed, but the reviewer refused to approve it. The writing agent had left old "TODO: implement" comments in the files. Its reasoning: those lines make the documentation actively wrong and mislead the next reader into thinking the code is still unfinished. A single agent grading its own work would have waved that through. An independent reviewer caught it. That one rejection is the most important moment of the whole experiment. After the fix, it passed. Eleven tests.
+
+## Task two: a vague goal, and who decides what "good" means
+
+The second task was deliberately fuzzy. "Make the error output more user friendly." There is no test for that. There is no single right answer.
+
+![The agent defines user friendly itself](/blog/ai-agent-tool-experiment/04-planner-fuzzy.png)
+*With no criteria given, the agent invents its own definition of user friendly.*
+
+So the agent did the only thing it could. It made up its own definition. It decided user friendly meant sorted and grouped output, terminal aware formatting, and a warning when a secret still looks like a placeholder. Then its reviewers checked the result against that self made definition and approved it. Twenty three tests.
+
+And here is the honest part. The result was actually good. Errors and warnings separated, each message naming the variable and the problem, a genuinely helpful note to replace the secret before deploying. I ran it by hand to see for myself, and I would have shipped it.
+
+But notice what happened. The agent did not judge whether the output was user friendly. It judged whether the output matched the definition it had written for itself. If it had decided user friendly meant "add emojis" or "make it shorter", it would have passed just as green, with a worse result. The only real check that it was good was me looking at it. A person set that bar, after the fact. The loop cannot.
+
+## Task three: a rule that must never break, and two checks, both set by humans
+
+The third task was a safety rule. Never print the value of a secret. Not in success messages, not in errors, not in logs. The variable name is fine, the value must always be masked.
+
+![zeroshot rates the task CRITICAL](/blog/ai-agent-tool-experiment/02-conductor-critical.png)
+*The same classifier now rates this task CRITICAL, because it is core secrets handling.*
+
+This time the classifier reacted differently. It rated the task CRITICAL, because it directly implements and verifies secret masking logic, core secrets and credentials handling. Same machine, same tool, a completely different rating than task one, and the right call. That upgrade mattered, because CRITICAL turns on an extra reviewer, a security check that task one never got.
+
+![The security reviewer confirms the rule](/blog/ai-agent-tool-experiment/05-security-verifies.png)
+*The security reviewer confirms the rule independently. No output path leaks a secret.*
+
+That security reviewer confirmed the rule on its own. No path echoes the secret value, 27 of 27 tests pass. So the rule was caught by two independent checks, the security reviewer and the explicit criterion I had written into the task.
+
+And this is the point that survives all the hype. Both checks exist because a human defined them. Someone wrote the rule that secrets handling counts as CRITICAL. I wrote the acceptance criterion. No agent decided on its own that secrets matter. It inherited that from two human written rules. Where I had not written a rule, in task two, it made one up. Where a rule existed, in task three, it enforced it well.
+
+I still verified it myself, because a green checkmark is a claim, not a proof.
+
+![My own cross check, no leak](/blog/ai-agent-tool-experiment/06-manual-grep.png)
+*My own cross check. The secret value never appears in any output.*
+
+One line, searching every output for the real secret value. Zero hits. The loop's report held up.
+
+## What three runs actually showed
+
+Together, the three runs tell a clear story, and it is not the story that AI does the engineering.
+
+When the goal is checkable, the loop is excellent. It even caught a mistake a single agent would have missed. When the goal is vague, the loop invents its own standard, and whether that standard is any good can only be judged by a person. When a rule must hold, the loop enforces it well, but only because a human defined the rule in the first place. It never chose the rule itself.
+
+The test count grew from 11 to 23 to 27 across the runs. The tool works, it is genuinely useful, and an autonomous agent built almost all of it.
+
+But the value never moved into the loop. It stayed one level up, in the human work of deciding what correct means, knowing when the agent is only grading itself, and choosing where a person must stay in the process. For anyone deciding whether to hand real work to AI agents, that is the part that does not disappear. The loop is the cheap part. Defining and verifying what done means is still the job.
+
+dotenv-guard is open and documents these runs, including the environment used, so anyone can reproduce them: [github.com/achildrenmile/dotenv-guard](https://github.com/achildrenmile/dotenv-guard). Thanks again to the zeroshot team for building something solid enough to test this on.
