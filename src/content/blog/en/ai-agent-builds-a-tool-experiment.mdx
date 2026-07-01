@@ -15,7 +15,7 @@ Everyone is talking about letting AI agents work on their own, in a loop, until 
 
 **The tool.** It is called dotenv-guard, and it checks a project's .env file, the file that holds configuration and secrets, against a schema you define. It reports what is missing, wrong, or risky before your app breaks in production. Small, but the kind of thing every team needs. It is open source: [github.com/achildrenmile/dotenv-guard](https://github.com/achildrenmile/dotenv-guard).
 
-**The agent.** The thing that built it is zeroshot, an open source system from The Open Engine that runs several AI agents together. One plans, one writes the code, and independent reviewers check the result, looping until the work is verified or rejected: [github.com/the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot). Full credit to the team behind it. What follows is not a review of zeroshot. It is a look at what such a loop can and cannot decide, using zeroshot as a well built example.
+**The agent.** The thing that built it is zeroshot, an open source system from The Open Engine that runs several AI agents together. One plans, one writes the code, and independent reviewers check the result, looping until the work is verified or rejected: [github.com/the-open-engine/zeroshot](https://github.com/the-open-engine/zeroshot). I came across zeroshot through Eivind Meyer of The Open Engine, who brought it up in a discussion about autonomous agent loops. This is the practical test that exchange pushed me to run. Full credit to the team behind it. What follows is not a review of zeroshot. It is a look at what such a loop can and cannot decide, using zeroshot as a well built example.
 
 I gave the agent three tasks, each written as an issue with clear criteria. Each one taught something different.
 
@@ -73,12 +73,14 @@ One line, searching every output for the real secret value. Zero hits. The loop'
 
 ## What three runs actually showed
 
-Together, the three runs tell a clear story, and it is not the story that AI does the engineering.
+Together, the three runs tell a clear story, and it is not the story that AI takes over the engineering. But let me be honest, even against my own point: the loop did almost all of the work, and it did it well. It planned, wrote the code, caught its own mistake, tested, and iterated until green. My share was tiny in volume, three short tasks and a checking glance. Anyone watching that thinks, fairly, at first: it solved this on its own.
 
-When the goal is checkable, the loop is excellent. It even caught a mistake a single agent would have missed. When the goal is vague, the loop invents its own standard, and whether that standard is any good can only be judged by a person. When a rule must hold, the loop enforces it well, but only because a human defined the rule in the first place. It never chose the rule itself.
+And yet that is exactly what is not quite true. The loop solved every problem that was well posed. It could not pose any of them. Where I deliberately left the problem open, in task two, it did not solve it. It quietly replaced it with its own definition and worked through that. Whether that definition was any good, it could not judge at any point. Only my eyes could. "Built almost all of it" and "could have run without me" are two different sentences. The first is true. The second is not.
 
-The test count grew from 11 to 23 to 27 across the runs. The tool works, it is genuinely useful, and an autonomous agent built almost all of it.
+When the goal is checkable, the loop is excellent. It even caught a mistake a single agent would have missed. When the goal is vague, it invents its own standard, and whether that standard is any good can only be judged by a person. When a rule must hold, it enforces it well, but only because a human defined the rule in the first place. It chose none of them.
 
-But the value never moved into the loop. It stayed one level up, in the human work of deciding what correct means, knowing when the agent is only grading itself, and choosing where a person must stay in the process. For anyone deciding whether to hand real work to AI agents, that is the part that does not disappear. The loop is the cheap part. Defining and verifying what done means is still the job.
+The test count grew from 11 to 23 to 27 across the runs. The tool works, it is genuinely useful, and an autonomous agent built almost all of it. The value still did not move into the loop. It stayed one level up, in deciding what gets built, in choosing what correct means, in noticing when the agent is only grading itself, and in judging whether the result is actually any good. That role is smaller in volume and larger in weight, and it feels like less at first, even though it carries more.
+
+For anyone deciding whether to hand real work to AI agents, that is the part that does not disappear. The loop is the cheap part. Deciding what gets built, and verifying whether it is actually any good, is still the job.
 
 dotenv-guard is open and documents these runs, including the environment used, so anyone can reproduce them: [github.com/achildrenmile/dotenv-guard](https://github.com/achildrenmile/dotenv-guard). Thanks again to the zeroshot team for building something solid enough to test this on.
